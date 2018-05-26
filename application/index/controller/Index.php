@@ -15,6 +15,7 @@
 namespace app\index\controller;
 
 use think\Controller;
+use think\Db;
 
 /**
  * 应用入口控制器
@@ -25,6 +26,9 @@ class Index extends Controller
 
     public function index()
     {
-        $this->redirect('@admin/login');
+
+      $banner = Db::name('cms_banner')->where(['type' => 1, 'status' => 1])->select();
+
+      return $this->fetch('index', ['banner' => $banner]);
     }
 }

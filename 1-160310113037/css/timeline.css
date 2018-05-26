@@ -1,0 +1,54 @@
+/*-核心代码-*/
+/* Menu style */
+	#timeline {
+		min-width:320px;
+		max-width:540px;
+		height: auto;
+		overflow: hidden;
+		margin:0 auto;
+		position: relative;
+		border-radius:5px;
+		background:url(../images/bt_line.png) repeat-x top center
+	}
+		#dates {
+			width: 100%;
+			height:40px;
+			overflow: hidden;
+		}
+			#dates li {
+				list-style: none;
+				float: left;
+				width:80px;
+				font-size:14px;
+				text-align: center;
+			}
+				#dates li a {
+					color:#707070;
+					line-height:40px;
+				}
+				#dates .selected {
+					list-style: none;
+					float: left;
+					width:80px;
+					line-height:40px;
+					font-size:16px;
+					text-align: center;
+					background: #17a862;
+			        color:#fff;
+				}
+		
+		#issues {
+			width:340px;
+			height: auto;
+			overflow: hidden;
+			padding:10px;
+		}	
+		#issues li {
+			width:340px;
+			list-style: none;
+			float: left;
+			display:block;
+		}
+		
+		
+		
