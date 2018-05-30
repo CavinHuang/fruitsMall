@@ -15,6 +15,7 @@
 namespace app\index\controller;
 
 use app\store\service\GoodsService;
+use controller\BaseHome;
 use think\Controller;
 use think\Db;
 
@@ -22,7 +23,7 @@ use think\Db;
  * 应用入口控制器
  * @author Anyon <zoujingli@qq.com>
  */
-class Index extends Controller
+class Index extends BaseHome
 {
 
   protected $userId = 1;
@@ -75,6 +76,14 @@ class Index extends Controller
       return $this->fetch('goods_info', ['good' => $goods, 'shopNum' => $shopCartNumber]);
     }
 
+  /**
+   * 加入购物车
+   * @methods
+   * @desc
+   * @author slide
+   * @return \think\response\Json
+   *
+   */
     public function addShopCart () {
       $data = $this->request->post();
 
@@ -86,6 +95,55 @@ class Index extends Controller
         return json( [ 'code' => 2000, 'msg' => '加入购物车成功' ] );
       } else {
         return json( [ 'code' => 4000, 'msg' => '加入购物车失败' ] );
+      }
+    }
+
+  /**
+   * 购物车
+   * @methods
+   * @desc
+   * @author slide
+   *
+   */
+    public function shopcart () {
+
+      $cart = Db::name('StoreShopcart')->where('user_id', $this->userId)->select();
+
+      return $this->fetch('shopcart', ['cart' => $cart]);
+    }
+
+  /**
+   * 更新购物车
+   * @methods
+   * @desc
+   * @author slide
+   *
+   */
+    public function updateShopCart () {
+      $data = $this->request->post();
+
+      if (!isset($data['ids']) || $data['ids'] == '') return $this->AjaxError('没有选择商品');
+      $ids = $data['ids'];
+      unset($data['ids']);
+      $stock = 0;
+
+      // 校验库存
+      if (isset($data['number']) && $data['number'] != '') {
+        $spec_id =  Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'id' => $ids])->value('spec_id');
+
+        $stock = Db::name('StoreGoodsList')->where('id', $spec_id)->value('goods_stock');
+
+        if (intval($data['number']) > $stock) {
+          return $this->AjaxError('库存不足', $stock);
+        }
+
+      }
+
+      $result = Db::name('StoreShopcart')->where(['user_id' => $this->userId])->whereIn('id', $ids)->strict(true)->update($data);
+      if ($result) {
+        return $this->AjaxSuccess('更新成功');
+      } else {
+        return $this->AjaxError('更新失败');
       }
     }
 }

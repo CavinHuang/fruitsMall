@@ -13,6 +13,7 @@ use service\ToolsService;
 use think\Controller;
 
 class BaseHome extends Controller {
+  public $userId = 1;
 
   /**
    * 返回成功的操作

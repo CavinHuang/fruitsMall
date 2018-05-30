@@ -16,6 +16,8 @@ namespace think;
 
 // 加载基础文件
 require __DIR__ . '/thinkphp/base.php';
+define('WEB_ROOT', __DIR__);
+define('WEB_DOMAIN', 'http://'.$_SERVER['HTTP_HOST']);
 
 // think文件检查，防止TP目录计算异常
 file_exists('think') || touch('think');

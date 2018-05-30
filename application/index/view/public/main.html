@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{block name="viewport"}<meta name="viewport" content="width=device-width, initial-scale=1">{/block}
 	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 	<title>{block name="title"}{$title|default=''}{if !empty($title)} · {/if}{:sysconf('site_name')}{/block}</title>
 	
@@ -36,17 +36,17 @@
 <div class="footer navbar-fixed-bottom">
 	<div class="row">
 		
-		<div class="col-xs-3 text-center" style=" padding-top:5px;">
-			<a class="cgreen" href="index.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav11.png"><br>首页</div></a>
+		<div class="col-xs-4 text-center" style=" padding-top:5px;">
+			<a class="cgreen" href="/"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav11.png"><br>首页</div></a>
 		</div>
-		<div class="col-xs-3  text-center" style=" padding-top:5px;">
+		<!--<div class="col-xs-3  text-center" style=" padding-top:5px;">
 			<a class="cgray" href="market_info.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav2.png"><br>附近</div></a>
+		</div>-->
+		<div class="col-xs-4  text-center" style="padding-top:5px;">
+			<a class="cgray" href="{:url('Index/index/shopcart')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav3.png"><br>购物车</div></a>
 		</div>
-		<div class="col-xs-3  text-center" style=" padding-top:5px;">
-			<a class="cgray" href="login.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav3.png"><br>购物车</div></a>
-		</div>
-		<div class="col-xs-3  text-center" style="padding-top:5px;">
-			<a class="cgray" href="login.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav4.png"><br>我的</div></a>
+		<div class="col-xs-4  text-center" style="padding-top:5px;">
+			<a class="cgray" href="{:url('Index/user/index')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav4.png"><br>我的</div></a>
 		</div>
 	</div>
 </div><!-- footer -->

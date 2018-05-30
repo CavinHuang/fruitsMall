@@ -1,0 +1,83 @@
+{extend name="index@public/main"}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/homeWap/css/cart.css" />
+<style>
+	a,a:visited,a:link {color: #232326}
+</style>
+{/block}
+{block name="body"}
+<div class="edit_gtfix">
+	<a href="{:url('User/address_list',array('source'=>'cart-index','goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">
+		{if condition="!empty($address)"}
+			<div class="namephone fl">
+				<div class="top">
+					<div class="le fl">{$address.username}</div>
+					<div class="lr fl">{$address.phone}</div>
+				</div>
+				<div class="bot">
+					<i class="dwgp"></i>
+					<span>{$address.address}</span>
+				</div>
+				<input type="hidden" value="{$address.id}" name="address_id"/> <!--收货地址id-->
+			</div>
+			<div class="fr youjter">
+				<i class="Mright"></i>
+			</div>
+			<div class="ttrebu">
+				<img src="__STATIC__/homeWap/images/tt.png"/>
+			</div>
+			{else/}
+			<div class="namephone fl">
+				<div class="top">
+					<div class="le fl"></div>
+					<div class="lr fl">请先先写收货信息</div>
+				</div>
+				<div class="bot">
+					<i class="dwgp"></i>
+					<span></span>
+				</div>
+			</div>
+			<div class="fr youjter">
+				<i class="Mright"></i>
+			</div>
+			<div class="ttrebu">
+				<img src="__STATIC__/homeWap/images/tt.png"/>
+			</div>
+		{/if}
+	</a>
+</div>
+
+<!--商品信息-s-->
+<div class="ord_list fill-orderlist p">
+	<div class="maleri30">
+		<!--{volist name="cartList" id="cart"}-->
+			<div class="shopprice">
+				<div class="img_or fl"><img src="{$cart.list_pic_url}"/></div>
+				<div class="fon_or fl">
+					<h2 class="similar-product-text">{$cart['goods_title']}</h2>
+					<div>{$cart['goods_specifition_name_value']}</div>
+				</div>
+				<div class="price_or fr">
+					<p class="red"><span>￥</span><span>{$cart['selling_price']}</span></p>
+					<p class="ligfill">x{$cart['number']}</p>
+				</div>
+			</div>
+		<!--{/volist}-->
+	</div>
+</div>
+<!--商品信息-e-->
+{/block}
+
+{block name="footer"}
+<!--提交订单-s-->
+<div class="mask-filter-div" style="display: none;"></div>
+<div class="payit fillpay ma-to-200">
+	<div class="fr submit_price">
+		<a href="javascript:void(0)" onclick="submit_order()">提交订单</a>
+	</div>
+	<div class="fl">
+		<p><span class="pmo">应付金额：</span>￥<span id="payables"></span><span></span></p>
+	</div>
+</div>
+<!--提交订单-e-->
+{/block}
