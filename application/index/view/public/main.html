@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	{block name="viewport"}<meta name="viewport" content="width=device-width, initial-scale=1">{/block}
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>{block name="title"}{$title|default=''}{if !empty($title)} · {/if}{:sysconf('site_name')}{/block}</title>
+	
+	<!-- Bootstrap -->
+	<link href="__STATIC__/homeWap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="__STATIC__/homeWap/css/font-awesome.min.css" rel="stylesheet">
+	<link href="__STATIC__/homeWap/css/alongsty.css" rel="stylesheet">
+	
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="__STATIC__/homeWap/css/swiper.min.css">
+	{block name="style"}{/block}
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="__STATIC__/homeWap/js/html5shiv_min.js"></script>
+	<script src="__STATIC__/homeWap/js/respond_min.js"></script>
+	<![endif]-->
+	
+	<style type="text/css">
+		<!--
+		body{ background:#ffffff;  font-family:"微软雅黑"; }
+		-->
+	</style>
+</head>
+<body>
+{block name="body"}{/block}
+
+<div class="height20"></div>
+{block name="footer"}
+<div class="footer navbar-fixed-bottom">
+	<div class="row">
+		
+		<div class="col-xs-4 text-center" style=" padding-top:5px;">
+			<a class="cgreen" href="/"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav11.png"><br>首页</div></a>
+		</div>
+		<!--<div class="col-xs-3  text-center" style=" padding-top:5px;">
+			<a class="cgray" href="market_info.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav2.png"><br>附近</div></a>
+		</div>-->
+		<div class="col-xs-4  text-center" style="padding-top:5px;">
+			<a class="cgray" href="{:url('Index/index/shopcart')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav3.png"><br>购物车</div></a>
+		</div>
+		<div class="col-xs-4  text-center" style="padding-top:5px;">
+			<a class="cgray" href="{:url('Index/user/index')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav4.png"><br>我的</div></a>
+		</div>
+	</div>
+</div><!-- footer -->
+{/block}
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="__STATIC__/homeWap/js/jquery_min1_11_2.js"></script>
+<script src="__STATIC__/homeWap/js/layer.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="__STATIC__/homeWap/js/bootstrap.min.js"></script>
+{block name="script"}{/block}
+</body>
+</html>

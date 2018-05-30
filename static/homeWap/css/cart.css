@@ -1,0 +1,211 @@
+body {
+    background-color: #f8f8f8!important;
+}
+.edit_gtfix {
+    background-color: white;
+    position: relative;
+    min-height: 90px
+}
+
+.edit_gtfix .namephone {
+    margin-left: 15.64px;
+    width: 80%
+}
+
+.edit_gtfix .namephone .top {
+    font-size: 16px;
+    overflow: hidden;
+    /*padding: 12px 0*/
+}
+
+.edit_gtfix .namephone .top .le {
+    width: 40%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 12px;
+    padding: 12px 0;
+}
+
+.edit_gtfix .namephone .top .lr {
+    padding: 12px 0;
+    color: #666
+}
+
+.edit_gtfix .namephone .bot {
+    font-size: 16px;
+    clear: both;
+    overflow: hidden;
+    position: relative
+}
+
+.edit_gtfix .namephone .bot .dwgp {
+    background-image: url("../images/dw.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 18px;
+    height: 22px
+}
+
+.edit_gtfix .namephone .bot span {
+    margin-left: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block
+}
+
+.edit_gtfix .youjter {
+    margin-right: .64rem
+}
+
+.edit_gtfix .youjter .Mright {
+    margin-top: 1.23733rem
+}
+
+.edit_gtfix .ttrebu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.edit_gtfix .ttrebu img {
+    width: 100%
+}
+.ord_list {
+    padding-bottom: .74667rem;
+}
+.fill-orderlist {
+    margin-top: .42667rem;
+    background: white
+}
+
+.fill-orderlist .shopprice .price_or p.red {
+    color: #f23030
+}
+
+.fill-orderlist .shopprice .price_or p.ligfill {
+    color: #666666
+}
+.p:before, .p:after {
+    content: "";
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+}
+.maleri30 {
+    margin: 12px;
+}
+.shopprice {
+    clear: both;
+    border-bottom: 1px solid #ddd;
+}
+.shopprice .img_or {
+    margin-top: 20px;
+}
+.fl {
+    float: left;
+}
+.shopprice .img_or img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #c2c2c2;
+}
+.shopprice .fon_or {
+    width:60%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.similar-product-text {
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: .64rem;
+    font-size: .51000rem;
+    overflow: hidden;
+    color: #232326;
+    /* margin-top: .34133rem; */
+    line-height: .64rem;
+    padding: 0 .1rem;
+    margin-bottom: .34133rem;
+    margin-top: .1rem;
+}
+.shopprice .fon_or h2 {
+    color: #666666;
+    font-size: 16px;
+    font-weight: normal;
+    height: 28px;
+    line-height: 28px;
+}
+.shopprice .fon_or div {
+    color: #333333;
+    font-size: 14px;
+    position: relative;
+}
+.shopprice .price_or {
+    margin-top: .896rem;
+}
+.fr {
+    float: right;
+}
+.mask-filter-div {
+    display: none;
+    position: fixed;
+    max-width: 16rem;
+    margin: 0 auto;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 12;
+    background: rgba(0,0,0,0.4)
+}
+.ma-to-200 {
+    margin-top: 100px;
+}
+.payit {
+    height: 50px;
+    background-color: white;
+    overflow: hidden;
+    padding-left: 12px
+}
+
+.payit .fl {
+    line-height: 50px
+}
+
+.payit .fl p {
+    font-size: 14px;
+    color: #f23030
+}
+
+.payit .fl p .pmo {
+    color: #222222
+}
+
+.payit .fl .lastime {
+    color: #666666
+}
+
+.payit .fr {
+    width: 120px
+}
+
+.payit .fr a {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #f23030;
+    display: block
+}
+
+.payit .fr a.disable {
+    background-color: #e5e8eb;
+}

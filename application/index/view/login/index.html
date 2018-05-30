@@ -1,0 +1,68 @@
+{extend name="index@public/main"}
+
+{block name="body"}
+<div class="toper navbar-fixed-top">
+	<div class="row color_white " >
+		<div class="col-xs-2"></div>
+		<div class="col-xs-8 text-center font20">快速登录</div>
+		<div class="col-xs-2">&nbsp;</div>
+	</div>
+</div><!-- toper -->
+<div class="height53"></div>
+<div class="height20"></div>
+<div class=" container-fluid" >
+	<form class="form-horizontal" name="login">
+		<div class="form-group form-group-lg">
+			<div class="col-xs-12">
+				<input type="text" class="form-control" name="phone" placeholder="请输入手机号">
+			</div>
+		</div>
+		<div class="height10"></div>
+		<div class="form-group form-group-lg">
+			<div class="col-xs-12">
+				<input type="password" class="form-control" name="password" placeholder="请输入密码">
+			</div>
+		</div>
+		<div class="height10"></div>
+		<div class="form-group">
+			<div class="col-xs-12">
+				<button type="submit" class="btn btn-success btn-lg btn-group-justified" id="onSubmit">登录</button>
+				<a href="{:url('register')}" style="width: 100%; text-align: right; height: 28px;
+line-height: 28px;display: inline-block">还没有账号? 立即注册!</a>
+			</div>
+		</div>
+	</form>
+	<div class="height10"></div>
+	<!--<div class=" width100 text-center font16 color_gray"> 点击登录，即表示您同意<a href="#">《免责声明》</a></div>-->
+</div><!-- 中部 -->
+{/block}
+
+{block name="footer"}{/block}
+
+{block name="script"}
+<script>
+  $(function () {
+    var $onSubmit = $("#onSubmit")
+    var isSubmit = false
+
+    $onSubmit.click(function () {
+
+      if (isSubmit) return;
+
+      $(this).removeClass('btn-success').text('正在登录...')
+      isSubmit = true
+
+      $.post('{:url("doLogin")}', $('form[name="login"]').serialize(), function (res) {
+        if (res.code == 1) {
+          setTimeout(function () {window.location.href = "{:url('user/index')}"}, 2000)
+        }
+        msg(res.msg)
+
+      }, 'json')
+
+      return false
+    })
+
+  })
+</script>
+{/block}

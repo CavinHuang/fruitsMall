@@ -1,0 +1,161 @@
+{extend name="index@public/main"}
+{block name="style"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/homeWap/css/shopcar.css" />
+{/block}
+{block name="body"}
+<div class="toper navbar-fixed-top">
+	<div class="row color_white " >
+		<div class="col-xs-2">&nbsp;</div>
+		<div class="col-xs-8 text-center font20">社区生鲜</div>
+		<!--<div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"><img src="__STATIC__/homeWap/images/icon_soso.png" alt="搜索"></div></a></div>-->
+	</div>
+</div><!-- toper -->
+
+<div class="sc_h"></div>
+<!--{volist name="cart" id="c"}-->
+<div class="lb">
+	<div class="check">
+		<div class="xz {if condition='$c.checked == 1'}active{/if}" data="{if condition='$c.checked == 1'}1{else/}0{/if}" data-id="{$c.id}"></div>
+	</div>
+	<img src="{$c.list_pic_url}" class="spt">
+	<div class="mid">
+		<p class="name">{$c.goods_title}</p>
+		<p class="color">{$c.goods_specifition_name_value}</p>
+		<div class="jj">
+			<span class="jia" data-id="{$c.id}">-</span>
+			<input class="num" value="{$c.number}" readonly data-id="{$c.id}">
+			<span class="jian" data-id="{$c.id}">+</span>
+		</div>
+	</div>
+	<div class="jgq">
+		<div class="price"><p>￥<span class="pri">{$c.selling_price}</span></p></div>
+		<div class="price_de"><p><del>￥{$c.market_price}</del></p></div>
+		<img src="__STATIC__/homeWap/images/del.jpg" class="del"  data-id="{$c.id}" />
+	</div>
+</div>
+<!--{/volist}-->
+{/block}
+{block name="footer"}
+<div class="sc_h"></div>
+<div class="fix_bottom">
+	<div id="qx" data="0"></div><span style="float:left;line-height:0.8rem;">全选</span>
+	<div class="zjq">
+		<p class="p1">合计:￥
+			<span id="zj" >0</span>
+		</p>
+		<p>含运费</p>
+	</div>
+	<a href="{:url('cart/index')}" id="js">结算(<span id="zsl">0</span>)</a>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/homeWap/js/auto-size.js"></script>
+<script type="text/javascript">
+  $(function(){
+    js(false);
+    $(".xz").click(function(){
+      var a = $(this).attr("data");
+      if (a==0) {
+        $(this).addClass('active');
+        $(this).attr("data",1)
+      }else{
+        $(this).removeClass('active');
+        $(this).attr("data",0)
+        $("#qx").attr("data",0);
+        $("#qx").removeClass('active');
+      }
+      js(true);
+    })
+    $("#qx").click(function(){
+      var a = $(this).attr("data");
+      if (a==0) {
+        $(".xz").attr("data",1);
+        $(this).addClass('active');
+        $(".xz").addClass('active');
+        $(this).attr("data",1);
+      }else{
+        $(".xz").attr("data",0);
+        $(this).removeClass('active');
+        $(".xz").removeClass('active');
+        $(this).attr("data",0);
+      }
+      js(true);
+    })
+    $(".jian").click(function(){
+      var a = $(this).prev().val();
+      a++;
+      $(this).prev().val(a);
+      js(false);
+      updateShopCart($(this).data('id'), {number: a}, true, $(this).prev())
+      
+    })
+    $(".jia").click(function(){
+      var a = $(this).next().val();
+      a--;
+      if (a < 1) {
+        msg('数量不能小于1哦~~~')
+	      return
+      }
+      $(this).next().val(a);
+      updateShopCart($(this).data('id'), {number: a}, true, $(this).next())
+      var a = $(".xz").attr("data");
+      if(a==1){
+        js(false);
+      }
+    })
+    $(".del").click(function(){
+      $(this).parent().parent().remove();
+      js(true);
+    })
+    function js(isUpdate){
+      
+      var num=0;
+      var conut=0;
+      var ids = ''
+	    var idsSub = ''
+	    var allChecked = true
+
+      $(".xz").each(function(){
+        if ($(this).attr("data")==1) {
+          var b = $(this).parent().next().next().find(".num").val();
+          var jg = $(this).parent().next().next().next().find(".pri").text();
+          conut+=parseInt(b);
+          num+=b*jg;
+          ids += $(this).data('id') + ','
+        } else {
+          idsSub += $(this).data('id') + ','
+          allChecked = false
+        }
+      })
+      ids = ids.substring(0, ids.length - 1)
+      idsSub = idsSub.substring(0, idsSub.length - 1)
+      if (isUpdate) {
+        updateShopCart(idsSub, {'checked': 0})
+        updateShopCart(ids, {'checked': 1})
+      }
+      if (allChecked) {
+        $('#qx').addClass('active')
+      }
+      $('#zj').html(num);
+      $('#zsl').html(conut);
+    }
+    
+    function updateShopCart (ids, data, isMsg, obj) {
+      data['ids'] = ids;
+      msg = msg || false
+      $.post('{:url("updateShopCart")}', data, function (res) {
+        console.log(obj)
+	      if (res.data !== '' && res.data.length !== 0 && obj) {
+          $(obj).val(res.data)
+	      }
+	      
+	      if (isMsg) {
+          msg(res.msg)
+	      }
+	      
+      }, 'json')
+    }
+  })
+
+</script>
+{/block}

@@ -1,0 +1,378 @@
+@charset "UTF-8";
+body{margin:0;background: #f9f9f9 !important;}
+a:active,a:hover{outline:0}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+table{border-collapse:collapse;border-spacing:0}
+td,th{padding:0}
+img{vertical-align:middle;border:0}
+@-ms-viewport{width:device-width}
+html{font-size:300%;-webkit-tap-highlight-color:transparent;height:100%;min-width:320px;overflow-x:hidden}
+body{font-family:"microsoft yahei";font-size:.28em;line-height:1;color:#333;background-color:#f1f1f1;}
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{font-weight:500;line-height:1.1}
+.h1 .small,.h1 small,.h2 .small,.h2 small,.h3 .small,.h3 small,.h4 .small,.h4 small,.h5 .small,.h5 small,.h6 .small,.h6 small,h1 .small,h1 small,h2 .small,h2 small,h3 .small,h3 small,h4 .small,h4 small,h5 .small,h5 small,h6 .small,h6 small{font-weight:400;line-height:1}
+.h1,.h2,.h3,h1,h2,h3{margin-top:.28rem;margin-bottom:.14rem}
+.h1 .small,.h1 small,.h2 .small,.h2 small,.h3 .small,.h3 small,h1 .small,h1 small,h2 .small,h2 small,h3 .small,h3 small{font-size:65%}
+.h4,.h5,.h6,h4,h5,h6{margin-top:.14rem;margin-bottom:.14rem}
+.h4 .small,.h4 small,.h5 .small,.h5 small,.h6 .small,.h6 small,h4 .small,h4 small,h5 .small,h5 small,h6 .small,h6 small{font-size:75%}
+.h1,h1{font-size:.364rem}
+.h2,h2{font-size:.2996rem}
+.h3,h3{font-size:.238rem}
+.h4,h4{font-size:.175rem}
+.h5,h5{font-size:.14rem}
+.h6,h6{font-size:.119rem}
+i{font-style: normal;}
+h6{margin-top:0;margin-bottom:0}
+button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
+a, a:visited, a:link{color:#777;text-decoration:none;outline:0}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+a.react,label.react{display:block;color:inherit;height:100%}
+a.react.react-active,a.react:active,label.react:active{background:rgba(0,0,0,.1)}
+ul{margin:0;padding:0;list-style-type:none}
+hr{margin-top:.28rem;margin-bottom:.28rem;border:0;border-top:1px solid #DDD8CE}
+h6,p{line-height:1.41;text-align:justify;margin:-.1em 0;word-break:break-all}
+small,weak{color:#666}
+::-webkit-input-placeholder {color:#999;line-height:inherit;}
+:-moz-placeholder {color:#999;line-height:inherit;}
+::-moz-placeholder {color:#999;line-height:inherit;}
+.c:before,.c:after {content: "";display: table}
+.c:after {clear: both}
+.c {zoom: 1}
+@font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot'); /* IE9*/
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+header {
+    color: #fff;
+    height: 2rem;
+    background: linear-gradient(green,#34712c);
+}
+.user{
+    text-align: center;
+    float: left;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin: 18px 12px;
+    border-radius: 50%;
+}
+.user img {
+    width: 100%;
+    height: 100%;
+}
+.user i{
+    font-size: 1rem;
+}
+.userinfo{
+    height: 2rem;
+    float: left;
+    width: 50%;
+}
+.userinfo p:first-child{
+    font-size: .32rem;
+    padding-top: .65rem;
+}
+.userinfo p:last-child span{
+    margin-left: 1rem;
+}
+.right_icon{
+    font-size: .4rem;
+    float: left;
+    width: 26%;
+    line-height: 2rem;
+    text-align: right;
+    padding-right: 4%;
+
+}
+.right_icon a{color: #fff;}
+section{
+    display: -webkit-box;
+    width: 100%;
+    height: 2rem;
+    background: #fff;
+}
+section a{
+    -webkit-box-flex: 1;
+    text-align: center;
+    display: block;
+}
+
+section a i{
+    border-radius: 100%;
+    width: .8rem;
+    background: #2fb8ce;
+    margin: .35rem auto .2rem auto;
+    display: block;
+    font-size: .35rem;
+    color: #fff;
+    height: .8rem;
+    line-height: .8rem;
+}
+aside{
+    margin-top: .2rem;
+}
+aside ul{
+    font-size: .3rem;
+    line-height: .8rem;
+    color: #000;
+}
+aside ul li{
+    text-align: left;
+    width: 96%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 0 2%;
+}
+aside ul li  a i{
+    font-size: .35rem;
+    text-align: center;
+    width: .7rem;
+    display: inline-block;
+}
+.login-out {
+    width: 80%;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    background-color: #17a862;
+    margin: 0.4rem auto 0 auto;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.loading-btn {
+    background-color: #d1d1d1;
+}
+
+/*个人信息-start*/
+.box {
+    min-height: 100%;
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
+    height: 100%;
+}
+.box section {
+    /* margin-bottom: 0.08rem; */
+    width: 100%;
+    display: block;
+}
+.box section a{
+    text-align: left;
+}
+.box section label {
+    display: block;
+}
+.myDetail {
+    background-color: #f3f3f3 !important;
+}
+
+.none {
+    display: none !important;
+}
+/*.myDetail section{
+    background-color: #fff;
+    margin-bottom: 0.2rem;
+}*/
+
+.myDetail .detail_hint {
+    margin: 0 auto;
+    text-align: left;
+    color: #808080;
+    background: white;
+    padding-top: 11px;
+    padding-bottom: 8px;
+    padding-left: 0.12rem;
+    font-size: 12px;
+    margin-bottom: 0.1rem;
+}
+
+.detail_hint .color {
+    color: #dd2727 !important;
+}
+
+.myDetail .pos_right {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    padding: 12px 0;
+}
+
+.myDetail .pos_right input {
+    border: none;
+    outline: none;
+    text-align: right;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+
+.myDetail .avatar {
+    position: relative;
+    border-bottom: 1px solid #DEDEDE;
+    padding: 18px 0;
+    margin-left: 16px;
+}
+
+.myDetail .user_img {
+    position: absolute;
+    top: 6px;
+    right: 26px;
+}
+
+.myDetail .user_img img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.myDetail .arrow {
+    position: absolute;
+    right: 18px;
+    top: 0;
+    padding: 18px 0;
+}
+
+.myDetail .arrow img {
+    height: 0.14rem;
+}
+
+.myDetail .name {
+    padding: 16px 0;
+    padding-left: 16px;
+    border-bottom: 1px solid #DEDEDE;
+    position: relative;
+}
+
+.myDetail .avatar_name {
+    background: white;
+}
+
+.myDetail .phone_address {
+    background: white;
+    margin-top: 0.12rem;
+}
+
+.myDetail .address {
+    position: relative;
+    padding: 16px 0;
+    padding-left: 16px;
+}
+
+.myDetail .arrow_1 {
+    padding: 16px 0;
+    margin-right: 14px;
+}
+
+.myDetail .bind_container {
+    background: white;
+    margin-top: 12px;
+    border-bottom: 1px solid #DEDEDE;
+    position: relative;
+    padding: 16px 0;
+    padding-left: 16px;
+}
+
+.myDetail .detail_save {
+    margin: 0 0.12rem;
+    margin-top: 20px;
+}
+
+.myDetail .detail_save button {
+    background: #FF6500;
+    width: 100%;
+    height: 36px;
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 0.04rem;
+}
+
+.myDetail span {
+    color: #555959;
+}
+
+.myDetail .btn {
+    margin: 0 20px;
+    margin-top: 40px;
+}
+
+.myDetail .btn button {
+    width: 100%;
+    color: white;
+    border: none;
+    outline: none;
+    height: 32px;
+    background: #D70030;
+    border-radius: 32px;
+}
+
+.revise_box {
+    padding-top: 0.6rem;
+}
+
+.myDetail .revise_name {
+    margin: 0 12px;
+}
+
+.myDetail .revise_name input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #84C96C;
+    background: transparent;
+    font-size: 15px;
+    font-family: "微软雅黑";
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.myDetail .revise_title {
+    color: #9E9E9E;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.myDetail .revise_btn {
+    margin-top: 100px;
+}
+
+.myDetail .revise_btn li {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.myDetail .revise_btn button {
+    width: 80%;
+    height: 32px;
+    border: none;
+    outline: none;
+    border-radius: 32px 0 32px 0;
+    background: orange;
+    color: white;
+}
+
+.myDetail .revise_btn li:last-child button {
+    border-radius: 0 32px 0 32px;
+}
+
+.myDetail #user_img,
+.myDetail .phone_address .address,
+.myDetail .bind_container {
+    background-image: url("../images/detail_arrow_right.png");
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 8px;
+}
+

@@ -1,0 +1,127 @@
+{extend name="index@public/main"}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/homeWap/css/user.css" />
+{/block}
+{block name="body"}
+<div class="myDetail box">
+	<div class="main">
+		<section>
+			<div class="detail_hint">
+				<p>为保证头像显示效果美观，建议上传<span class="color">正方形</span>的图片</p>
+			</div>
+			<form name="edit">
+			<div class="avatar_name">
+				<label for="change_user_img">
+					<div class="avatar clear" id="user_img">
+						<div class="left">
+							<span>头像</span>
+						</div>
+						<div class="user_img"><img id="img_show" src="{$user.headimg|default=''}" alt=""></div>
+						<input type="hidden" name="headimg" id="headimg">
+						<input class="none" onchange="change_userimg(this)" id="change_user_img" type="file">
+					</div>
+				</label>
+				<div class="name clear">
+					<span>昵称</span>
+					<div id="name" class="pos_right"><input type="text" name="nickname" value="{$user.nickname|default=''}" placeholder="昵称"></div>
+				</div>
+			</div>
+			
+			<div class="phone_address">
+				<div class="phone_container">
+					<div class="name">
+						<span>绑定手机号</span>
+						<div id="phone" class="pos_right"><input type="text" name="phone" value="{$user.phone|default=''}"></div>
+					</div>
+				</div>
+				<a href="/home/address/index.html">
+					<div class="address">
+						<span>我的收货地址</span>
+					</div>
+				</a></div><a href="/home/address/index.html">
+		</a>
+			
+			<ul>
+				<!--<li>
+					<a href="/home/weichat/auth_login/uid/1745.html?regster_bindwx=1&amp;regster_uid=1745">
+						<div class="bind_container">
+							<span>绑定微信</span>                 <div class="arrow arrow_1 unbind">
+							已绑定
+						</div>
+						</div>
+					</a>
+				</li>-->
+				<!--<li>
+					<a href="/home/user/realname/uid/1745.html">
+						<div class="bind_container">
+							<span>实名认证</span>
+							<div class="arrow arrow_1">
+								未提交                </div>
+						</div>
+					</a>
+				</li>-->
+			</ul>
+			<div class="login-out" id="onSubmit">提&nbsp;&nbsp;交</div>
+			</form>
+		</section>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script>
+  var headimg_base64 = ""
+  function change_userimg(event) {
+    var img = event.files[0];
+    if (!/image\/\w+/.test(img.type)) {
+      alert("请选择图片");
+      return false;
+    }
+    var fileder = new FileReader();
+    fileder.readAsDataURL(img);
+    fileder.onload = function (e) {
+      $("#img_show").attr("src", this.result);
+      headimg_base64 = this.result
+      // $("#headimg").val(this.result)
+    }
+  };
+$(function () {
+	var isSubmit = false
+  $("#onSubmit").click(function () {
+    var headimg = ''
+    if (isSubmit) return false
+    
+    $(this).addClass('loading-btn').text('正在提交...')
+	  isSubmit = true
+	  
+	  // 上传头像
+	  if (headimg_base64 != '') {
+      $.post('{:url("/index/upload_files/savebase64image", ["to_dir" => "user_img", "compress" => true])}', {formFile: headimg_base64}, function (res) {
+        if (res.code == 0) {
+          headimg = res.url
+          $("#headimg").val(headimg)
+        } else {
+	        msg('头像长传失败,请重试')
+        }
+        getUserData();
+      }, 'json')
+	  }
+   
+  })
+	
+	function getUserData () {
+    var $data = $('form[name="edit"]').serialize()
+		
+    $.post('{:url("doEdit")}', $data, function (res) {
+      if (res.code == 1) {
+        $("#onSubmit").removeClass('loading-btn').text('提 交')
+        isSubmit = false
+	      setTimeout(function () {
+		      window.location.href = "{:url('index')}"
+        }, 2000)
+      }
+      msg(res.msg)
+    })
+	}
+})
+</script>
+{/block}
