@@ -26,7 +26,6 @@ use think\Db;
 class Index extends BaseHome
 {
 
-  protected $userId = 1;
   /**
    * 首页
    * @methods
@@ -107,7 +106,7 @@ class Index extends BaseHome
    */
     public function shopcart () {
 
-      $cart = Db::name('StoreShopcart')->where('user_id', $this->userId)->select();
+      $cart = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'is_deleted' => 0])->select();
 
       return $this->fetch('shopcart', ['cart' => $cart]);
     }

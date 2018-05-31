@@ -48,6 +48,7 @@
 </div>
 
 <!--商品信息-s-->
+<!--{php}$total_price = 0;{/php}-->
 <div class="ord_list fill-orderlist p">
 	<div class="maleri30">
 		<!--{volist name="cartList" id="cart"}-->
@@ -62,6 +63,7 @@
 					<p class="ligfill">x{$cart['number']}</p>
 				</div>
 			</div>
+			<!--{php}$total_price += $cart['selling_price'] * $cart['number'];{/php}-->
 		<!--{/volist}-->
 	</div>
 </div>
@@ -76,8 +78,30 @@
 		<a href="javascript:void(0)" onclick="submit_order()">提交订单</a>
 	</div>
 	<div class="fl">
-		<p><span class="pmo">应付金额：</span>￥<span id="payables"></span><span></span></p>
+		<p><span class="pmo">应付金额：</span>￥<span id="payables">{$total_price}</span><span></span></p>
 	</div>
 </div>
 <!--提交订单-e-->
+{/block}
+
+{block name="script"}
+<script>
+	function submit_order() {
+		var $address_id = $("input[name='address_id']").val()
+		
+		if ($address_id == '') {
+		  msg('还没有选择地址');
+		  return;
+		}
+		
+		$.post('{:url("cart2")}', {address_id: $address_id}, function (res) {
+			if (res.status == 1) {
+			  setTimeout(function () {
+          window.location.href = "{:url('order/order_detail')}?id="+res.data.id
+        }, 2000)
+			}
+			msg(res.msg)
+    }, 'json')
+  }
+</script>
 {/block}
