@@ -197,14 +197,14 @@
     $.ajax({
       type: 'GET',
       dataType:'JSON',
-      url:"/index.php?m=Mobile&c=Order&a=cancel_order&id="+id,
+      url:"{:url('cancel_order')}?id="+id,
       success:function(data){
         if(data.code == 1){
           layer.open({content:data.msg,time:2});
-          location.href = "/index.php?m=Mobile&c=Order&a=order_detail&id="+id;
+          location.href = "{:url('order_detail')}?id="+id;
         }else{
           layer.open({content:data.msg,time:2});
-          location.href = "/index.php?m=Mobile&c=Order&a=order_detail&id="+id;
+          location.href = "{:url('order_detail')}?id="+id;
           return false;
         }
       },

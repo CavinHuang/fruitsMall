@@ -59,7 +59,7 @@ class Cart extends BaseHome {
     $address['address'] = $address_str . $address['address'];
 
     // 商品
-    $cartList = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'checked' => 1])->select();
+    $cartList = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'checked' => 1, 'is_deleted' => 0])->select();
 
     return $this->fetch('index', ['address' => $address, 'cartList' => $cartList]);
   }
@@ -105,7 +105,14 @@ class Cart extends BaseHome {
     // shop cart ids
     $shop_cart_ids = '';
 
+    $spec_ids = "";
+
+    $stock_sql = "UPDATE store_goods_list SET goods_stock = CASE id ";
+
     foreach ($cartList as $k => $v) {
+
+      $stock_sql .= " WHEN ". $v['spec_id'] ." THEN goods_stock - ". $v['number'];
+      $spec_ids .= $v['spec_id'] . ",";
 
       $self_total_selling_price = $v['selling_price'] * $v['number'];
       $self_total_market_price = $v['market_price'] * $v['number'];
@@ -132,6 +139,9 @@ class Cart extends BaseHome {
         'status'        => 1
       ];
     }
+    $spec_ids = substr($spec_ids, 0, strlen($spec_ids) - 1);
+    $stock_sql .= " END WHERE id IN (" . $spec_ids .")";
+
     // set order data
     $order_data = [
       'consignee'     => $address['username'],
@@ -163,6 +173,10 @@ class Cart extends BaseHome {
 
       // delete shop cart item
       Db::name('StoreShopcart')->whereIn('id', $shop_cart_ids)->update(['is_deleted' => 1]);
+
+      //TODO update goods stock
+      Log::write($stock_sql);
+      Db::execute($stock_sql);
 
       Db::commit();
 
