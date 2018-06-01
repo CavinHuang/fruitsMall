@@ -46,7 +46,7 @@ class Index extends BaseHome
 
       // dump($result['list'][0]['spec']);die;
 
-      return $this->fetch('index', ['banner' => $banner, 'goods' => $result['list']]);
+      return $this->fetch('index', ['banner' => $banner, 'page' => 1, 'pagesize' => 10, 'goods' => $result['list']]);
     }
 
   /**
@@ -135,7 +135,6 @@ class Index extends BaseHome
         if (intval($data['number']) > $stock) {
           return $this->AjaxError('库存不足', $stock);
         }
-
       }
 
       $result = Db::name('StoreShopcart')->where(['user_id' => $this->userId])->whereIn('id', $ids)->strict(true)->update($data);
@@ -143,6 +142,19 @@ class Index extends BaseHome
         return $this->AjaxSuccess('更新成功');
       } else {
         return $this->AjaxError('更新失败');
+      }
+    }
+
+    public function ajaxGetGoodsList () {
+      $page = input('page');
+      $pagesize = input('pagesize');
+
+      $result = Db::name('StoreGoods')->field('id, goods_desc, goods_title, goods_logo, goods_content, brand_id, cate_id')->where(['is_deleted' => '0'])->order('status desc,sort asc,id desc')->paginate($pagesize, true, ['page' => $page]);
+
+      if ($result) {
+        return $this->AjaxSuccess('查询成功', $result);
+      } else {
+        return $this->AjaxError('查询失败', $result);
       }
     }
 }

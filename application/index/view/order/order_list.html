@@ -1,0 +1,125 @@
+{extend name="index@public/main"}
+{block name="viewport"}{/block}
+{block name="style"}
+<script src="__STATIC__/homeWap/js/mobile-util.js"></script>
+<link rel="stylesheet" href="__STATIC__/homeWap/css/address.css" />
+<style>
+	a,a:visited,a:link {color: #232326}
+	body{background: #f8f8f8 !important;}
+	.mytit_flash ul li {width: 20%}
+</style>
+{/block}
+{block name="body"}
+<div class="tit-flash-sale p mytit_flash">
+	<div class="maleri30">
+		<ul class="">
+			<li {if condition="$status eq 0"}class="red"{/if}>
+				<a href="{:url('/Mobile/Order/order_list')}" class="tab_head">全部订单</a>
+			</li>
+			<li id="WAITPAY" {if condition="$status eq 1"}class="red"{/if}">
+			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITPAY'))}" class="tab_head" >待付款</a>
+			</li>
+			<li id="WAITSEND" {if condition="$status eq 2"}class="red"{/if}>
+			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITSEND'))}"  class="tab_head">待发货</a>
+			</li>
+			<li id="WAITGET" {if condition="$status eq 3"}class="red"{/if}>
+			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITSEND'))}"  class="tab_head">待收货</a>
+			</li>
+			<li id="WAITCCOMMENT"  {if condition="$status eq 5"}class="red"{/if}>
+			<a href="{:url('/Mobile/Order/order_list',array('type'=>'FINISH'))}" class="tab_head">已完成</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!--订单列表-s-->
+<div class="ajax_return">
+	{if condition="count($lists) eq 0"}
+		<!--没有内容时-s--->
+		<div class="comment_con p">
+			<div class="none">
+				<img src="__STATIC__/images/none2.png">
+				<br><br>
+				抱歉未查到数据！
+				<div class="paiton">
+					<div class="maleri30">
+						<a class="soon" href="/"><span>去逛逛</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--没有内容时-e--->
+	{/if}
+	{volist name="lists" id="list"}
+		<div class="mypackeg ma-to-20 getmore">
+			<div class="packeg p">
+				<div class="maleri30">
+					<div class="fl">
+						<h1><span></span><span class="bgnum"></span></h1>
+						<p class="bgnum"><span>订单编号:</span><span>{$list.order_no}</span></p>
+					</div>
+					<div class="fr">
+						<span>{$order_status_desc[$list['status']]}</span>
+					</div>
+				</div>
+			</div>
+			<div class="shop-mfive p">
+				<div class="maleri30">
+					{php}$total_number = 0;{/php}
+					{foreach  name="list.goods_list" item="good"}
+						<div class="sc_list se_sclist paycloseto">
+							<a {if condition="$list.status eq 1"}href="{:url('Order/order_detail',array('id'=>$list['id'],'waitreceive'=>1))}" {else/} href="{:url('Order/order_detail',array('id'=>$list['id']))}"{/if}>
+							<div class="shopimg fl">
+								<img src="{$good['goods_logo']}">
+							</div>
+							<div class="deleshow fr">
+								<div class="deletes">
+									<span class="similar-product-text">{$good['goods_title']|getSubstr=0,20}</span>
+								</div>
+								<div class="deletes">
+									<span class="similar-product-text">{$good.goods_spec}</span>
+								</div>
+								<div class="prices  wiconfine">
+									<p class="sc_pri"><span>￥</span><span>{$good['selling_price']}</span></p>
+								</div>
+								<div class="qxatten  wiconfine">
+									<p class="weight"><span>数量</span>&nbsp;<span>{$good['number']}</span></p>
+								</div>
+							</div>
+							</a>
+						</div>
+					{php}$total_number += $good['number'];{/php}
+					{/foreach}
+				</div>
+			</div>
+			<div class="shop-rebuy-price p">
+				<div class="maleri30">
+            <span class="price-alln">
+                <span class="red">￥{$list['real_price']}</span><span class="threel" id="goodsnum">共{$total_number}件</span>
+            </span>
+					{if condition="$list.status eq 2"}
+						<a class="shop-rebuy paysoon" href="{:url('Mobile/Cart/cart4',array('order_id'=>$list['id']))}">立即付款</a>
+					{/if}
+					{if condition="$list.status eq 1"}
+						{if condition="$list.is_pay eq 0"}
+							<a class="shop-rebuy " onClick="cancel_order({$list.id})">取消订单</a>
+						{/if}
+					{/if}
+					{if condition="$list.status eq 3"}
+						<a class="shop-rebuy paysoon" onclick="orderConfirm({$list.id})">确认收货</a>
+					{/if}
+					{if condition="$list.status eq 4"}
+						<a class="shop-rebuy" href="{:url('/Mobile/Order/comment')}">评价</a>
+					{/if}
+					{if condition="$list.status eq 3"}
+						<a class="shop-rebuy" class="shop-rebuy" href="{:url('Mobile/Order/express',array('order_id'=>$list['id']))}">查看物流</a>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/volist}
+</div>
+<!--订单列表-e-->
+{/block}
+
+{block name="footer"}{/block}

@@ -70,7 +70,7 @@
 <div class="height20"></div>
 
 <div class=" container-fluid">
-	<div class="row">
+	<div class="row" id="goodsWarrp">
 		<!--{volist name='goods' id="g"}-->
 		<div class="col-xs-6" style="padding-right:5px;">
 			<div class="thumbnail" style="padding:0px;">
@@ -85,9 +85,58 @@
 		</div>
 		<!--{/volist}-->
 	</div>
-	<button type="button" class="btn btn-default btn-group-justified">加载更多 <i class="icon-double-angle-down"></i></button>
+	<button type="button" class="btn btn-default btn-group-justified" id="loadMore" data-page="{$page}" data-pagesize="{$pagesize}">加载更多 <i class="icon-double-angle-down"></i></button>
 	<div class="height20"></div>
 </div>
 <div class="height60"></div>
 </div>
+{/block}
+
+{block name="script"}
+<script>
+	var isLoading = false
+	$("#loadMore").click(function (e) {
+		var $page = $(this).data('page')
+		var $pagesize = $(this).data('pagesize')
+		
+		if (isLoading) return;
+		
+		$(this).text('正在为您加载~~~')
+		isLoading = true
+    $page ++
+		var _this = $(this)
+		$.get('{:url("ajaxGetGoodsList")}', {page: $page, pagesize: $pagesize}, function (res) {
+			if (res.code) {
+			  if (res.data.data.length > 0 ) {
+			    var _data = res.data.data
+				  var html = ''
+				  var goods_info_url = "{:url('goods_info')}";
+				  for (var i = 0; i < _data.length; i++) {
+			      var _d = _data[i]
+			      html += '<div class="col-xs-6" style="padding-right:5px;">' +
+				      '<div class="thumbnail" style="padding:0px;">' +
+				      '<a href="'+ goods_info_url +'?gid='+ _d.id +'"><div class="sosophoto"><img src="'+ _d.goods_logo +'"></div>' +
+						  '<div class="caption">' +
+						  '<h4>'+ _d.goods_title +'</h4>' +
+						  '<span class="color_gray">'+ _d.goods_desc +'</span>' +
+						  '<p class="color_gray"><span class="font16 color_orange">¥ '+ _d.spec[0]['selling_price'] +'</span>/斤</p>' +
+						  '</div>' +
+						  '</a>' +
+						  '</div>' +
+						  '</div>'
+				  }
+				  
+				  $("#goodsWarrp").appendChild(html)
+				  isLoading = false
+				  _this.text('加载更多')
+			  } else {
+			    _this.text('没有更多商品了')
+				  isLoading = true
+			  }
+			}
+			msg(res.msg)
+    }, 'json')
+		
+  })
+</script>
 {/block}

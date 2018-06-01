@@ -9,6 +9,7 @@
 namespace app\index\controller;
 
 
+use app\index\model\StoreOrder;
 use controller\BaseHome;
 use service\DataService;
 use think\Db;
@@ -77,5 +78,23 @@ class Order extends BaseHome {
       Db::rollback();
       $this->AjaxError('取消订单失败，请重试');
     }
+  }
+
+  public function order_list () {
+    $status = input('status', 0);
+
+    $where = [];
+
+    if ($status) {
+      $where['status'] = $status;
+    }
+
+    $orderMdl = new StoreOrder();
+
+    $result = $orderMdl->with('goods_list')->where($where)->select();
+    $order_status_desc = [0 => '订单失效', 1 => '待付款', 2 => '待发货', 3 => '待收货', 4 => '已完成'];
+
+
+    return $this->fetch('order_list', ['lists' => $result, 'status' => $status, 'order_status_desc' => $order_status_desc]);
   }
 }

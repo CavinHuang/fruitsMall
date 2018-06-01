@@ -14,6 +14,19 @@ use think\Controller;
 
 class BaseHome extends Controller {
   public $userId = 1;
+  public $class_url = '';
+  protected function initialize () {
+    parent::initialize();
+    $this->class_url = $this->request->module().'/'.$this->request->controller().'/'.$this->request->action();
+
+    $this->assign('class_url', $this->class_url);
+
+    // 校验登录
+    if (!in_array($this->class_url, config('app.not_include_path')) && !session('user_id')) {
+      redirect('index/Login/index');
+    }
+
+  }
 
   /**
    * 返回成功的操作
