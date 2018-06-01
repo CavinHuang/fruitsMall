@@ -7,7 +7,7 @@ a:hover { color:#006735; text-decoration:none;}
 /*****************<定义文字颜色>**********************/
 .color_white{ color:#fff;}
 .color_black{ color:#000;}
-.color_skyblue{ color:##66CCFF;}
+.color_skyblue{ color:#66CCFF;}
 .color_blue{ color:#4991dd;}
 .color_green{ color:#17a862;}
 .color_greenyellow{color:#adff2f;}
@@ -41,11 +41,6 @@ a:hover { color:#006735; text-decoration:none;}
 .cviolet2,a.cviolet2:link,a.cviolet2:visited{color:#60c;text-decoration: underline;/*<紫色不带下划线>*/}
 .cviolet2,a.cviolet2:hover{color:#f00; /*<紫色色变红>*/}
 
-.cgreen,a.cgreen:link,a.cgreen:visited{color:#17a862; text-decoration:none; /*<绿>*/}
-.cgreen,a.cgreen:hover{color:#006735;/*<绿变黑>*/}
-.cgreen2,a.cgreen2:link,a.cgreen2:visited{color:#17a862; text-decoration: underline;/*<绿>*/}
-.cgreen2,a.cgreen2:hover{color:#006735;/*<绿变黑>*/}
-
 .corange,a.corange:link,a.corange:visited{color:#eb6100; text-decoration:none;/*<橙色>*/}
 .corange,a.corange:hover{color:#000000;/*<橙色变黑>*/}
 .corange2,a.corange2:link,a.corange2:visited{color:#eb6100; text-decoration: underline;/*<橙色>*/}
@@ -65,6 +60,12 @@ a:hover { color:#006735; text-decoration:none;}
 .cwhite,a.cwhite:hover{color:#ffff00;/*<纯白变黄>*/}
 .cwhite2,a.cwhite2:link,a.cwhite2:visited{color:#ffffff; text-decoration: underline;/*<纯白>*/}
 .cwhite2,a.cwhite2:hover{color:#ffff00;/*<纯白变黄>*/}
+
+.cgreen,a.cgreen:link,a.cgreen:visited{color:#17a862; text-decoration:none; /*<绿>*/}
+.cgreen,a.cgreen:hover{color:#006735;/*<绿变黑>*/}
+.cgreen2,a.cgreen2:link,a.cgreen2:visited{color:#17a862; text-decoration: underline;/*<绿>*/}
+.cgreen2,a.cgreen2:hover{color:#006735;/*<绿变黑>*/}
+
 
 /**************************<定义字体大小>**********************************/
 .font100{font-size:100px;}
@@ -347,7 +348,7 @@ a:hover { color:#006735; text-decoration:none;}
 /*****************<定义背景颜色>**********************/
 .bg_white{ background:#fff;}
 .bg_black{ background:#000;}
-.bg_skyblue{ background:##66CCFF;}
+.bg_skyblue{ background:#66CCFF;}
 .bg_blue{ background:#edf6fe;}
 .bg_green{ background:#17a862;}
 .bg_greenyellow{background:#adff2f;}
@@ -403,9 +404,9 @@ a:hover { color:#006735; text-decoration:none;}
 .photo_50 img{ height:50px; width:50px; }
 .photo_40 img{ height:40px; width:40px; }
 .photo_30 img{ height:30px; width:30px; }
-.photo_25 img{ height:25px; width:25px; } 
-.photo_20 img{ height:20px; width:20px; } 
-.photo_pinpai img{ height:40px; width:100px; } 
+.photo_25 img{ height:25px; width:25px; }
+.photo_20 img{ height:20px; width:20px; }
+.photo_pinpai img{ height:40px; width:100px; }
 .photo_book img{ width:90px; height:120px; }
 
 .adphoto img{ width:100%; height:100px;}
@@ -428,7 +429,7 @@ a:hover { color:#006735; text-decoration:none;}
 
 /*<定义手动轮滑焦点图>*/
 .swiper-container { width: 100%; height: 100%; }
-.swiper-slide { 
+.swiper-slide {
         /* Center slide text vertically */
         display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center;
         -ms-flex-align: center; -webkit-align-items: center; align-items: center; }

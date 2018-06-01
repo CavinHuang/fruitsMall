@@ -108,8 +108,13 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
+
     'upload_size' => 5120 * 1000, //上传大小限制 单位b
     'upload_ext' => 'jpg,png,gif,jpeg', //上传文件类型限定，
     'upload_main_path' => WEB_ROOT.'/static/upload', //上传文件存储主文件夹
     'upload_file_name' => 'date', //上传文件命名方式
+    // 前台不用校验登录的方法路径
+    'not_include_path' => [
+      'index/Index/index'
+    ],
 ];

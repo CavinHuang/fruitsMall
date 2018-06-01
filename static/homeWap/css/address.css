@@ -5275,7 +5275,7 @@ float: left
 
 .qqz a {
     display: inline-block;
-    border: 1px solid #f8f8f8;
+    border: 1px solid #ddd;
     border-radius: .21333rem;
     padding: .42667rem .85333rem;
     margin: .36267rem 0 0 .42667rem;
@@ -7682,7 +7682,7 @@ p.nike-price .throughli {
 }
 
 .paysoon {
-    color: white;
+    color: white!important;
     background-color: #f23030;
     border: 0
 }

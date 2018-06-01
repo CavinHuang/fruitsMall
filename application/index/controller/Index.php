@@ -26,7 +26,6 @@ use think\Db;
 class Index extends BaseHome
 {
 
-  protected $userId = 1;
   /**
    * 首页
    * @methods
@@ -47,7 +46,7 @@ class Index extends BaseHome
 
       // dump($result['list'][0]['spec']);die;
 
-      return $this->fetch('index', ['banner' => $banner, 'goods' => $result['list']]);
+      return $this->fetch('index', ['banner' => $banner, 'page' => 1, 'pagesize' => 10, 'goods' => $result['list']]);
     }
 
   /**
@@ -61,7 +60,9 @@ class Index extends BaseHome
    * @return mixed|void
    *
    */
-    public function goods_info ($gid = 0) {
+    public function goods_info () {
+
+      $gid = input('gid', 0);
 
       if (!$gid) return $this->error('没有这样的商品', url('index'));
 
@@ -72,7 +73,7 @@ class Index extends BaseHome
       $goods['goods_image'] = explode('|', $goods['goods_image']);
 
       // dump($goods);die;
-      $shopCartNumber = Db::name('StoreShopcart')->where('user_id', $this->userId)->count();
+      $shopCartNumber = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'is_deleted' => 0])->count();
       return $this->fetch('goods_info', ['good' => $goods, 'shopNum' => $shopCartNumber]);
     }
 
@@ -107,7 +108,7 @@ class Index extends BaseHome
    */
     public function shopcart () {
 
-      $cart = Db::name('StoreShopcart')->where('user_id', $this->userId)->select();
+      $cart = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'is_deleted' => 0])->select();
 
       return $this->fetch('shopcart', ['cart' => $cart]);
     }
@@ -136,7 +137,6 @@ class Index extends BaseHome
         if (intval($data['number']) > $stock) {
           return $this->AjaxError('库存不足', $stock);
         }
-
       }
 
       $result = Db::name('StoreShopcart')->where(['user_id' => $this->userId])->whereIn('id', $ids)->strict(true)->update($data);
@@ -144,6 +144,19 @@ class Index extends BaseHome
         return $this->AjaxSuccess('更新成功');
       } else {
         return $this->AjaxError('更新失败');
+      }
+    }
+
+    public function ajaxGetGoodsList () {
+      $page = input('page');
+      $pagesize = input('pagesize');
+
+      $result = Db::name('StoreGoods')->field('id, goods_desc, goods_title, goods_logo, goods_content, brand_id, cate_id')->where(['is_deleted' => '0'])->order('status desc,sort asc,id desc')->paginate($pagesize, true, ['page' => $page]);
+
+      if ($result) {
+        return $this->AjaxSuccess('查询成功', $result);
+      } else {
+        return $this->AjaxError('查询失败', $result);
       }
     }
 }

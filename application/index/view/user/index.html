@@ -19,16 +19,16 @@
 </header>
 
 <section>
-	<a href="javascript:;"><i class="iconfont">&#xe60b;</i>待支付</a>
-	<a href="javascript:;"><i class="iconfont" style="background: #e25b5b;">&#xe617;</i>代发货</a>
-	<a href="javascript:;"><i class="iconfont" style="background: #62d07a;">&#xe671;</i>待收货</a>
-	<a href="javascript:;"><i class="iconfont" style="background: #d6c46a;">&#xe717;</i>待评价</a>
+	<a href="{:url('Order/order_list', ['status' => 1])}"><i class="iconfont">&#xe60b;</i>待支付</a>
+	<a href="{:url('Order/order_list', ['status' => 2])}"><i class="iconfont" style="background: #e25b5b;">&#xe617;</i>待发货</a>
+	<a href="{:url('Order/order_list', ['status' => 3])}"><i class="iconfont" style="background: #62d07a;">&#xe671;</i>待收货</a>
+	<a href="{:url('Order/order_list', ['status' => 4])}"><i class="iconfont" style="background: #d6c46a;">&#xe717;</i>待评价</a>
 	<!--<a href="javascript:;"><i class="iconfont" style="background: #ca6abe;">&#xe75f;</i>待维权</a>-->
 </section>
 
 <aside>
 	<ul>
-		<li><a href="javscript:;" class="sp1"><i class="iconfont">&#xe60b;</i>全部订单<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
+		<li><a href="{:url('Order/order_list')}" class="sp1"><i class="iconfont">&#xe60b;</i>全部订单<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
 		<!--<li style="margin-top: .2rem;"><a href="javscript:;" class="sp2"><i class="iconfont">&#xe617;</i>分销中心<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>-->
 		<!--<li style="margin-top: .2rem;"><a href="javscript:;" class="sp3"><i class="iconfont">&#xe717;</i>我的优惠券<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
 		<li><a href="javscript:;" class="sp4"><i class="iconfont">&#xe671;</i>我的红包<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>

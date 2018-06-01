@@ -37,16 +37,46 @@
 	<div class="row">
 		
 		<div class="col-xs-4 text-center" style=" padding-top:5px;">
-			<a class="cgreen" href="/"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav11.png"><br>首页</div></a>
+			<a class="cgray {if condition='$class_url eq "index/Index/index"'}cgreen{/if}" href="/">
+				<div class="photo_30">
+					{if condition='$class_url eq "index/Index/index"'}
+						<img src="__STATIC__/homeWap/images/nav11.png">
+					{else/}
+						<img src="__STATIC__/homeWap/images/nav1.png">
+					{/if}
+					<br />
+					<span>首页</span>
+				</div>
+			</a>
 		</div>
 		<!--<div class="col-xs-3  text-center" style=" padding-top:5px;">
 			<a class="cgray" href="market_info.html"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav2.png"><br>附近</div></a>
 		</div>-->
 		<div class="col-xs-4  text-center" style="padding-top:5px;">
-			<a class="cgray" href="{:url('Index/index/shopcart')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav3.png"><br>购物车</div></a>
+			<a class="cgray {if condition='$class_url eq "index/Index/shopcart"'}cgreen{/if}" href="{:url('Index/index/shopcart')}">
+				<div class="photo_30">
+					{if condition='$class_url eq "index/Index/shopcart"'}
+						<img src="__STATIC__/homeWap/images/nav33.png">
+					{else/}
+						<img src="__STATIC__/homeWap/images/nav3.png">
+					{/if}
+					<br>
+					<span>购物车</span>
+				</div>
+			</a>
 		</div>
 		<div class="col-xs-4  text-center" style="padding-top:5px;">
-			<a class="cgray" href="{:url('Index/user/index')}"><div class="photo_30"><img src="__STATIC__/homeWap/images/nav4.png"><br>我的</div></a>
+			<a class="cgray {if condition="$class_url eq 'index/User/index'"}cgreen{/if}" href="{:url('Index/user/index')}">
+				<div class="photo_30">
+					{if condition='$class_url eq "index/User/index"'}
+						<img src="__STATIC__/homeWap/images/nav44.png">
+					{else/}
+						<img src="__STATIC__/homeWap/images/nav4.png">
+					{/if}
+					<br>
+					<span>我的</span>
+				</div>
+			</a>
 		</div>
 	</div>
 </div><!-- footer -->

@@ -9,7 +9,7 @@ body {
 
 .edit_gtfix .namephone {
     margin-left: 15.64px;
-    width: 80%
+    width: 94%
 }
 
 .edit_gtfix .namephone .top {
@@ -172,7 +172,11 @@ body {
     height: 50px;
     background-color: white;
     overflow: hidden;
-    padding-left: 12px
+    padding-left: 12px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .payit .fl {

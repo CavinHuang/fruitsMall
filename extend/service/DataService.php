@@ -47,11 +47,11 @@ class DataService
      * @param string $type 序号顾类型
      * @return string
      */
-    public static function createSequence($length = 10, $type = 'SYSTEM')
+    public static function createSequence($length = 10, $type = 'SYSTEM', $pre = '')
     {
         $times = 0;
         while ($times++ < 10) {
-            list($i, $sequence) = [0, ''];
+            list($i, $sequence) = [0, $pre.date('YmdHis')];
             while ($i++ < $length) {
                 $sequence .= ($i <= 1 ? rand(1, 9) : rand(0, 9));
             }
