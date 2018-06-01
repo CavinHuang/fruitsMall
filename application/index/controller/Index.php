@@ -60,7 +60,9 @@ class Index extends BaseHome
    * @return mixed|void
    *
    */
-    public function goods_info ($gid = 0) {
+    public function goods_info () {
+
+      $gid = input('gid', 0);
 
       if (!$gid) return $this->error('没有这样的商品', url('index'));
 
@@ -71,7 +73,7 @@ class Index extends BaseHome
       $goods['goods_image'] = explode('|', $goods['goods_image']);
 
       // dump($goods);die;
-      $shopCartNumber = Db::name('StoreShopcart')->where('user_id', $this->userId)->count();
+      $shopCartNumber = Db::name('StoreShopcart')->where(['user_id' => $this->userId, 'is_deleted' => 0])->count();
       return $this->fetch('goods_info', ['good' => $goods, 'shopNum' => $shopCartNumber]);
     }
 

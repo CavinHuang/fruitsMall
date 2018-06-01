@@ -7682,7 +7682,7 @@ p.nike-price .throughli {
 }
 
 .paysoon {
-    color: white;
+    color: white!important;
     background-color: #f23030;
     border: 0
 }

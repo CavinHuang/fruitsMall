@@ -82,7 +82,8 @@ class Order extends BaseHome {
 
   public function order_list () {
     $status = input('status', 0);
-
+    $page = input('p', 1);
+    $pagesize = input('pagesize', 10);
     $where = [];
 
     if ($status) {
@@ -91,10 +92,13 @@ class Order extends BaseHome {
 
     $orderMdl = new StoreOrder();
 
-    $result = $orderMdl->with('goods_list')->where($where)->select();
+    $result = $orderMdl->with('goods_list')->where($where)->paginate($pagesize, false, ['page' => $page, 'query' => ['status' => $status]]);
     $order_status_desc = [0 => '订单失效', 1 => '待付款', 2 => '待发货', 3 => '待收货', 4 => '已完成'];
 
-
-    return $this->fetch('order_list', ['lists' => $result, 'status' => $status, 'order_status_desc' => $order_status_desc]);
+    if ($this->request->isAjax()) {
+      return $this->AjaxSuccess('查询成功', $result);
+    } else {
+      return $this->fetch('order_list', ['lists' => $result, 'status' => $status, 'order_status_desc' => $order_status_desc]);
+    }
   }
 }

@@ -14,19 +14,19 @@
 	<div class="maleri30">
 		<ul class="">
 			<li {if condition="$status eq 0"}class="red"{/if}>
-				<a href="{:url('/Mobile/Order/order_list')}" class="tab_head">全部订单</a>
+				<a href="{:url('Order/order_list')}" class="tab_head">全部订单</a>
 			</li>
 			<li id="WAITPAY" {if condition="$status eq 1"}class="red"{/if}">
-			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITPAY'))}" class="tab_head" >待付款</a>
+			<a href="{:url('Order/order_list',array('status'=>1))}" class="tab_head" >待付款</a>
 			</li>
 			<li id="WAITSEND" {if condition="$status eq 2"}class="red"{/if}>
-			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITSEND'))}"  class="tab_head">待发货</a>
+			<a href="{:url('Order/order_list',array('status'=>2))}"  class="tab_head">待发货</a>
 			</li>
 			<li id="WAITGET" {if condition="$status eq 3"}class="red"{/if}>
-			<a href="{:url('/Mobile/Order/order_list',array('type'=>'WAITSEND'))}"  class="tab_head">待收货</a>
+			<a href="{:url('Order/order_list',array('status'=>3))}"  class="tab_head">待收货</a>
 			</li>
 			<li id="WAITCCOMMENT"  {if condition="$status eq 5"}class="red"{/if}>
-			<a href="{:url('/Mobile/Order/order_list',array('type'=>'FINISH'))}" class="tab_head">已完成</a>
+			<a href="{:url('Order/order_list',array('status'=>5))}" class="tab_head">已完成</a>
 			</li>
 		</ul>
 	</div>
@@ -38,7 +38,7 @@
 		<!--没有内容时-s--->
 		<div class="comment_con p">
 			<div class="none">
-				<img src="__STATIC__/images/none2.png">
+				<img src="__STATIC__/homeWap/images/none2.png">
 				<br><br>
 				抱歉未查到数据！
 				<div class="paiton">
@@ -97,7 +97,7 @@
             <span class="price-alln">
                 <span class="red">￥{$list['real_price']}</span><span class="threel" id="goodsnum">共{$total_number}件</span>
             </span>
-					{if condition="$list.status eq 2"}
+					{if condition="$list.status eq 1"}
 						<a class="shop-rebuy paysoon" href="{:url('Mobile/Cart/cart4',array('order_id'=>$list['id']))}">立即付款</a>
 					{/if}
 					{if condition="$list.status eq 1"}
@@ -121,5 +121,88 @@
 </div>
 <!--订单列表-e-->
 {/block}
-
 {block name="footer"}{/block}
+{block name="script"}
+<script type="text/javascript">
+  //滚动加载更多
+  var isLoading = false
+  $(window).scroll(
+    function() {
+      var scrollTop = parseInt($(this).scrollTop());
+      var scrollHeight = parseInt($(document).height());
+      var windowHeight = parseInt($(this).height());
+      if (scrollTop + windowHeight >= scrollHeight-50) {
+        if (isLoading) return
+        ajax_sourch_submit();//调用加载更多
+      }
+    }
+  );
+</script>
+<script type="text/javascript">
+  /**
+   * 取消订单
+   */
+  function cancel_order(id){
+    if(!confirm("确定取消订单?"))
+      return false;
+    $.ajax({
+      type: 'GET',
+      dataType:'JSON',
+      url:"/index.php?m=Mobile&c=Order&a=cancel_order&id="+id,
+      success:function(data){
+        if(data.code == 1){
+          layer.open({content:data.msg,time:1});
+          location.href = "/index.php?m=Mobile&c=Order&a=order_list";
+        }else{
+          layer.open({content:data.msg,time:2});
+          location.href = "/index.php?m=Mobile&c=Order&a=order_list";
+          return false;
+        }
+      },
+      error:function(){
+        layer.open({content:'网络异常，请稍后重试',time:3});
+      },
+    });
+  }
+
+  /**
+   * 确定收货
+   */
+  function orderConfirm(id){
+    if(!confirm("确定收到该订单商品吗?"))
+      return false;
+    location.href = "/index.php?m=Mobile&c=Order&a=order_confirm&id="+id;
+  }
+
+  var  page = 1;
+  /**
+   *加载更多
+   */
+  function ajax_sourch_submit()
+  {
+    page += 1;
+    isLoading = true
+    $.ajax({
+      type : "GET",
+      url:"{:url('order_list')}?status={$status}&is_ajax=1&p="+page,//+tab,
+      success: function(res)
+      {
+        if(res.code == 0){
+          $('#getmore').hide();
+          isLoading = true
+        } else {
+          //$(".ajax_return").append(data);
+          $(".m_loading").hide();
+          if (res.data.length > 0) {
+            isLoading = true
+          } else {
+            isLoading = false
+          }
+        }
+        
+      }
+    });
+  }
+</script>
+{/block}
+
