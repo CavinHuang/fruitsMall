@@ -1,0 +1,93 @@
+{extend name="index@public/main"}
+{block name="style"}
+<style>
+	.order-topay-warrp {
+		padding: 12px;
+	}
+	.order-clip-warrp p{
+		height: 28px;
+		line-height: 28px;
+		font-size: 16px;
+		text-align: center;
+		border-bottom: 1px solid #ddd;
+	}
+	.order-clip-warrp .clip-bord {
+		width: 80%;
+		margin: 16px auto 0 auto;
+		text-align: center;
+		height: 44px;
+		line-height: 44px;
+		background: #F2F2F2;
+		border-radius: 8px;
+	}
+	.order-before h3{
+		font-size: 16px;
+		border-bottom: 1px solid #dddddd;
+		height: 44px;
+		line-height: 44px;
+		margin-bottom: 8px;
+	}
+	.order-before .content {
+		background: #F2F2F2;
+		padding: 8px;
+		border-radius: 8px;
+		box-sizing: border-box;
+	}
+	.order-before .content img {
+		width: 49%;
+	}
+</style>
+{/block}
+{block name="body"}
+<div class="order-topay-warrp">
+	<div class="order-clip-warrp">
+		<p>订单编号</p>
+		<div class="clip-bord" onclick="copyOrderNo(this)">{$order_no}</div>
+	</div>
+	
+	<div class="order-before">
+		<h3>购买前须知</h3>
+		<div class="content">
+			{:sysconf('before_pay_desc')}
+		</div>
+	</div>
+	
+	<div class="order-before">
+		<h3>小刚刚微信二维码</h3>
+		<div class="content">
+			<img src="{:sysconf('wechat_qrcode')}" alt="微信二维码" />
+			<img src="{:sysconf('wechat_pay_qrcode')}" alt="微信付款二维码" />
+		</div>
+	</div>
+	
+	<div class="order-before">
+		<h3>联系说明</h3>
+		<div class="content">
+			{:sysconf('contact')}
+		</div>
+	</div>
+</div>
+{/block}
+{block name="footer"}{/block}
+{block name="script"}
+<script src="__STATIC__/homeWap/js/clipboard.min.js"></script>
+<script type="text/javascript">
+
+  function copyOrderNo (obj) {
+    var clipboard = new Clipboard(obj, {
+      // 通过target指定要复印的节点
+      target: function () {
+        return obj;
+      }
+    });
+
+    clipboard.on('success', function (e) {
+      msg('复制成功,联系管理员。')
+    });
+
+    clipboard.on('error', function (e) {
+      msg('复制成功,请重试。')
+    });
+  }
+</script>
+{/block}

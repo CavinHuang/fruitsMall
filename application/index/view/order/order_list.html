@@ -98,7 +98,7 @@
                 <span class="red">￥{$list['real_price']}</span><span class="threel" id="goodsnum">共{$total_number}件</span>
             </span>
 					{if condition="$list.status eq 1"}
-						<a class="shop-rebuy paysoon" href="{:url('Mobile/Cart/cart4',array('order_id'=>$list['id']))}">立即付款</a>
+						<a class="shop-rebuy paysoon" href="{:url('order_detail',array('id'=>$list['id']))}">立即付款</a>
 					{/if}
 					{if condition="$list.status eq 1"}
 						{if condition="$list.is_pay eq 0"}
@@ -109,10 +109,10 @@
 						<a class="shop-rebuy paysoon" onclick="orderConfirm({$list.id})">确认收货</a>
 					{/if}
 					{if condition="$list.status eq 4"}
-						<a class="shop-rebuy" href="{:url('/Mobile/Order/comment')}">评价</a>
+						<a class="shop-rebuy" href="#">评价</a>
 					{/if}
 					{if condition="$list.status eq 3"}
-						<a class="shop-rebuy" class="shop-rebuy" href="{:url('Mobile/Order/express',array('order_id'=>$list['id']))}">查看物流</a>
+						<a class="shop-rebuy" class="shop-rebuy" href="#">查看物流</a>
 					{/if}
 				</div>
 			</div>

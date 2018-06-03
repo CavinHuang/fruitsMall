@@ -101,4 +101,10 @@ class Order extends BaseHome {
       return $this->fetch('order_list', ['lists' => $result, 'status' => $status, 'order_status_desc' => $order_status_desc]);
     }
   }
+
+  public function order_topay () {
+
+    $order_sn = $this->request->get('order_no');
+    return $this->fetch('order_topay', ['order_no' => $order_sn]);
+  }
 }

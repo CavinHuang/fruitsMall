@@ -13,7 +13,8 @@ use service\ToolsService;
 use think\Controller;
 
 class BaseHome extends Controller {
-  public $userId = 1;
+  public $userId = null;
+  public $userInfo = null;
   public $class_url = '';
   protected function initialize () {
     parent::initialize();
@@ -23,8 +24,11 @@ class BaseHome extends Controller {
 
     // 校验登录
     if (!in_array($this->class_url, config('app.not_include_path')) && !session('user_id')) {
-      redirect('index/Login/index');
+      $this->redirect('index/Login/index');
     }
+
+    $this->userId = session('user_id');
+    $this->userInfo = session('user_info');
 
   }
 

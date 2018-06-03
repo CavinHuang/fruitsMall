@@ -51,13 +51,15 @@ line-height: 28px;display: inline-block">还没有账号? 立即注册!</a>
 
       $(this).removeClass('btn-success').text('正在登录...')
       isSubmit = true
+	    var _this = $(this)
 
       $.post('{:url("doLogin")}', $('form[name="login"]').serialize(), function (res) {
         if (res.code == 1) {
           setTimeout(function () {window.location.href = "{:url('user/index')}"}, 2000)
         }
         msg(res.msg)
-
+	      isSubmit = false
+        _this.addClass('btn-success').text('登 录')
       }, 'json')
 
       return false

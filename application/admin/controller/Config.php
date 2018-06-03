@@ -72,4 +72,23 @@ class Config extends BasicAdmin
         return $this->index();
     }
 
+  /**
+   * 商城设置
+   * @author 作者
+   * @date   2018/6/1 0001 下午 9:36
+   *
+   */
+    public function shop () {
+      if ($this->request->isGet()) {
+        return $this->fetch('', ['title' => '商城配置']);
+      }
+      if ($this->request->isPost()) {
+        foreach ($this->request->post() as $key => $vo) {
+          sysconf($key, $vo);
+        }
+        LogService::write('系统管理', '商城参数配置成功');
+        $this->success('商城参数配置成功！', '');
+      }
+    }
+
 }
