@@ -7,5 +7,7 @@
  */
 
 return [
-  'url_common_param'=>true
+  'url_common_param'=>true,
+  'dispatch_success_tmpl'  =>'static/dispatch_jump.tpl',
+  'dispatch_error_tmpl'    => 'static/dispatch_jump.tpl',
 ];

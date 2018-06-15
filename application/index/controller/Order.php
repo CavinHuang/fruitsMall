@@ -80,6 +80,14 @@ class Order extends BaseHome {
     }
   }
 
+  /**
+   * 订单列表
+   * @return mixed|void
+   * @throws \think\exception\DbException
+   * @author 作者
+   * @date   2018/6/15 0015 上午 11:27
+   *
+   */
   public function order_list () {
     $status = input('status', 0);
     $page = input('p', 1);
@@ -102,9 +110,67 @@ class Order extends BaseHome {
     }
   }
 
+  /**
+   *
+   * @return mixed
+   * @author 作者
+   * @date   2018/6/15 0015 下午 4:16
+   *
+   */
   public function order_topay () {
 
     $order_sn = $this->request->get('order_no');
     return $this->fetch('order_topay', ['order_no' => $order_sn]);
+  }
+
+  /**
+   * 订单处理
+   * @author 作者
+   * @date   2018/6/15 0015 上午 11:28
+   *
+   */
+  public function order_manger () {
+    if ($this->request->get('order_no')) {
+      $order_info = Db::name('StoreOrder')->where('order_no', $this->request->get('order_no'))->find();
+
+      $order_goods = Db::name('StoreOrderGoods')->where('order_no', $this->request->get('order_no'))->select();
+
+      $order_status_desc = [0 => '订单失效', 1 => '待付款', 2 => '待发货', 3 => '待收货', 4 => '已完成'];
+      $this->assign('order_info', $order_info);
+      $this->assign('order_goods', $order_goods);
+      $this->assign('order_status_desc', $order_status_desc);
+    }
+    return $this->fetch();
+  }
+
+  /**
+   * 订单处理
+   * @author 作者
+   * @date   2018/6/15 0015 下午 4:14
+   *
+   */
+  public function order_handle () {
+    $order_no = $this->request->get('order_no');
+    if (!$order_no) {
+      return $this->error('缺少订单号');
+    }
+    $status = $this->request->get('status');
+
+    $orderMdl = new StoreOrder();
+    $order_info = $orderMdl->where('order_no', $order_no)->find();
+
+    if (!$order_info) {
+      return $this->error('没有这样的订单');
+    }
+
+    $order_info->status = 2;
+    $order_info->is_pay = 1;
+
+    if ($order_info->save()) {
+      return $this->success('操作成功');
+    } else {
+      return $this->error('操作失败');
+    }
+
   }
 }
