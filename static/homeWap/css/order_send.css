@@ -62,7 +62,7 @@ form fieldset legend {
   text-shadow: 0 1px 0 #fff;
   font-size:.512rem
 }
-form fieldset.beta, form fieldset.charlie {
+form fieldset.alpha, form fieldset.beta, form fieldset.charlie {
   display: none;
 }
 form fieldset .frow {
@@ -75,9 +75,10 @@ form fieldset .frow {
 form fieldset .frow:last-child {
   margin-bottom: 0;
 }
-form fieldset input {
+form fieldset input, form fieldset select.form-control {
   float: left;
   width: 100%;
+  height: auto;
   padding: 0.5rem 0.15rem;
   font-weight: 400;
   font-family: "microsoft yahei";

@@ -6,6 +6,10 @@
 <style>
 	a,a:visited,a:link {color: #232326}
 	body{background: #f8f8f8 !important;}
+	.payit .fr a {
+		display: inline-block;
+		width: 4.18133rem;
+	}
 </style>
 {/block}
 {block name="body"}
@@ -36,7 +40,7 @@
 			<h1></h1>
 		</div>
 		<div class="fr">
-			<span>{$order_status_desc[$order_info.status]}</span>
+			<span>{$order_status_desc[$order_info['status']]}</span>
 		</div>
 	</div>
 </div>
@@ -66,7 +70,7 @@
 <div class="qqz">
 	<div class="maleri30">
 		<a href="tel:{:sysconf('SiteName')}">联系客服</a>
-		{if condition="$order_info.status == 0 || $order_info.status == 1"}
+		{if condition="$order_info.status == 1"}
 			<a class="closeorder_butt" >取消订单</a>
 		{/if}
 	</div>
@@ -164,17 +168,16 @@
 {block name="footer"}
 <!--底部支付栏-s-->
 <div class="payit ma-to-20">
-	<div class="fr s">
+	<div class="fr s" style="width: auto">
 		{if condition="$order_info.status eq 1"}
 		<a href="{:url('order_topay', ['order_no' => $order_info.order_no])}">立即付款</a>
 		{/if}
 		
-		{if condition="$order_info.status > 2"}
-		<a href="{:url('Order/order_confirm',array('id'=>$order_info['id']))}">收货确认</a>
+		{if condition="$order_info.status eq 3"}
+		<a href="{:url('Order/order_handle',array('order_no'=>$order_info['order_no'], 'status' => 4))}">收货确认</a>
 		{/if}
-		
-		{if condition="$order_info.status > 3"}
-		<a href="{:url('Order/express',array('order_id'=>$order_info['id']))}" >查看物流</a>
+		{if condition="$order_info.status >= 3"}
+		<a href="{:url('Order/shipping', ['express_code' => $order_express['company_code'], 'express_no' => $order_express['send_no']])}">查看物流</a>
 		{/if}
 	</div>
 </div>

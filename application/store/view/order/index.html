@@ -255,17 +255,17 @@
                 {if empty($vo.express)}
                 <span class="color-desc">无发货信息</span>
                 {else}
-                快递公司：{$vo.express.real_company_title|default=$vo.express.company_title}
-                {if !empty($vo.express.real_company_title)}
-                <!--<span class="color-desc">{$vo.express.real_express_at|format_datetime|default='未发货'}</span>-->
-                {if $vo.express.real_company_title neq $vo.express.company_title}
+                快递公司：{$vo.express.send_company_title|default=$vo.express.company_title}
+                {if !empty($vo.express.send_company_title)}
+                <!--<span class="color-desc">{$vo.express.send_at|format_datetime|default='未发货'}</span>-->
+                {if $vo.express.send_company_title neq $vo.express.company_title}
                 <s class="color-desc">{$vo.express.company_title}</s>
                 {/if}
                 {/if}
                 <br>
-                快递单号：{$vo.express.real_express_no|default='<span class="layui-badge layui-bg-blue">未发货</span>'|raw}
-                <!--{if auth('store/deliver/tracking') and !empty($vo.express.real_express_no)}-->
-                <a data-modal="{:url('store/deliver/tracking')}?express_code={$vo.express.real_express_code}&express_no={$vo.express.real_express_no}&company_title={$vo.express.real_company_title}" data-title="追踪物流">查看</a>
+                快递单号：{$vo.express.send_no|default='<span class="layui-badge layui-bg-blue">未发货</span>'|raw}
+                <!--{if auth('store/deliver/tracking') and !empty($vo.express.send_no)}-->
+                <a data-modal="{:url('store/deliver/tracking')}?express_code={$vo.express.send_company_code}&express_no={$vo.express.send_no}&company_title={$vo.express.send_company_title}" data-title="追踪物流">查看</a>
                 <!--{elseif auth('store/deliver/express') and $vo.status eq 2 and $vo.is_pay eq 1}-->
                 <a data-title="快速发货" data-modal="{:url('store/deliver/express')}?order_no={$vo.order_no}">快速发货</a>
                 <!--{/if}-->
@@ -274,7 +274,7 @@
                 收货地址：{$vo.express.province}{$vo.express.city}{$vo.express.area}{$vo.express.address}
                 {if auth('store/order/address')}<a data-title="修改收货人信息" data-modal="{:url('order/address')}?order_no={$vo.order_no}">修改</a>{/if}
                 {/if}
-                {if !empty($vo.express.real_express_at)}<br>发货时间：{$vo.express.real_express_at|format_datetime}{/if}
+                {if !empty($vo.express.send_at)}<br>发货时间：{$vo.express.send_at|format_datetime}{/if}
             </td>
         </tr>
         {/foreach}

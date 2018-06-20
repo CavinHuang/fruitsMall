@@ -111,8 +111,8 @@
 					{if condition="$list.status eq 4"}
 						<a class="shop-rebuy" href="#">评价</a>
 					{/if}
-					{if condition="$list.status eq 3"}
-						<a class="shop-rebuy" class="shop-rebuy" href="#">查看物流</a>
+					{if condition="$list.status >= 3 && $list['store_express']"}
+						<a class="shop-rebuy" class="shop-rebuy" href="{:url('index/Order/shipping', ['express_code' => $list['store_express']['company_code'], 'express_no' => $list['store_express']['send_no']])}">查看物流</a>
 					{/if}
 				</div>
 			</div>

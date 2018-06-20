@@ -53,7 +53,7 @@ class Express extends BasicAdmin
             list($start, $end) = explode(' - ', $get['date']);
             $db->whereBetween('create_at', ["{$start} 00:00:00", "{$end} 23:59:59"]);
         }
-        return parent::_list($db->where(['is_deleted' => '0'])->order('status desc,sort asc,id desc'));
+        return parent::_list($db->where(['is_deleted' => '0'])->order('status desc,sort desc,id desc'));
     }
 
     /**

@@ -120,5 +120,6 @@ return [
       'index/Login/dologin',
       'index/Login/register',
       'index/Login/doregister',
+      'index/Index/ajaxgetgoodslist'
     ],
 ];
