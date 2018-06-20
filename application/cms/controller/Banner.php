@@ -30,7 +30,7 @@ class Banner extends BasicAdmin {
    */
   public function index() {
     $this->title = '轮播图列表';
-    $db = Db::name($this->table);
+    $db = Db::name($this->table)->where('is_deleted', 0);
     return parent::_list($db->order('sort asc,id asc'), false, true, false, ['space' => $this->space]);
   }
 
@@ -71,8 +71,7 @@ class Banner extends BasicAdmin {
   protected function _form_result($result)
   {
     if ($result !== false) {
-      list($base, $spm, $url) = [url('@cms'), $this->request->get('spm'), url('cms/banner/index')];
-      $this->success('数据保存成功！', "{$base}#{$url}?spm={$spm}");
+      $this->success('数据保存成功！', "");
     }
   }
 

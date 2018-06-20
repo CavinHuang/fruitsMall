@@ -37,7 +37,7 @@ class Index extends BaseHome
     public function index()
     {
 
-      $banner = Db::name('CmsBanner')->where(['type' => 1, 'status' => 1])->select();
+      $banner = Db::name('CmsBanner')->where(['type' => 1, 'status' => 1, 'is_deleted' => 0])->select();
 
       $goods = $db = Db::name('StoreGoods')->field('id, goods_desc, goods_title, goods_logo, goods_content, brand_id, cate_id')->where(['is_deleted' => '0'])->order('status desc,sort asc,id desc')->paginate(10, true, ['page' => 1]);
 
