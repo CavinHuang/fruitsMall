@@ -24,7 +24,11 @@ class BaseHome extends Controller {
 
     // 校验登录
     if (!in_array($this->class_url, config('app.not_include_path')) && !session('user_id')) {
-      $this->redirect('index/Login/index');
+      if ($this->request->isAjax()) {
+        return $this->AjaxError('还没有登录，无法进行操作！');
+      } else {
+        $this->redirect('index/Login/index');
+      }
     }
 
     $this->userId = session('user_id');

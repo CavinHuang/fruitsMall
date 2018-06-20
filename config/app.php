@@ -120,6 +120,7 @@ return [
       'index/Login/dologin',
       'index/Login/register',
       'index/Login/doregister',
-      'index/Index/ajaxgetgoodslist'
+      'index/Index/ajaxgetgoodslist',
+      'index/Index/goods_info'
     ],
 ];
