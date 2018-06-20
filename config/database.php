@@ -15,13 +15,13 @@
 return [
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '47.94.136.43',
+    'hostname'        => '',
     // 数据库名
     'database'        => 'fruitsmall',
     // 用户名
-    'username'        => 'cavin',
+    'username'        => '',
     // 密码
-    'password'        => 'zhcm1993',
+    'password'        => '',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
