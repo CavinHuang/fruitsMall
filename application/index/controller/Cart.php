@@ -82,6 +82,7 @@ class Cart extends BaseHome {
     if ($address['area']) {
       $address_ids .= $address['area'];
     }
+    $address_old_str = $address['address'];
     $address_res = Db::name('StoreRegion')->field('name')->whereIn('id', $address_ids)->select();
     $address_str = '';
     foreach ($address_res as $k => $v) {
@@ -158,6 +159,18 @@ class Cart extends BaseHome {
       'status'        => 1
     ];
 
+    // set order express
+    $order_express_data = [
+      'order_no'  => $order_sn,
+      'mid'       => $this->userId,
+      'type'      => 1,
+      'username'  => $address['username'],
+      'phone'     => $address['phone'],
+      'province'  => $address['province'],
+      'city'      => $address['city'],
+      'area'      => $address['area'],
+      'address'   => $address_old_str,
+    ];
     Db::startTrans();
 
     try{
@@ -167,6 +180,10 @@ class Cart extends BaseHome {
 
       // get last order insert id
       $last_order_id = Db::name('StoreOrder')->getLastInsID();
+
+      // save order express
+      Db::name('StoreOrderExpress')->insert($order_express_data);
+
 
       // save order goods
       Db::name('StoreOrderGoods')->insertAll($cart_goods);

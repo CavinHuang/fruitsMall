@@ -14,4 +14,8 @@ class StoreOrder extends \think\Model {
 
     return $this->hasMany('StoreOrderGoods', 'order_no', 'order_no');
   }
+
+  public function storeExpress () {
+    return $this->hasOne('StoreOrderExpress', 'order_no', 'order_no');
+  }
 }

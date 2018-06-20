@@ -115,6 +115,12 @@ return [
     'upload_file_name' => 'date', //上传文件命名方式
     // 前台不用校验登录的方法路径
     'not_include_path' => [
-      'index/Index/index'
+      'index/Index/index',
+      'index/Login/index',
+      'index/Login/dologin',
+      'index/Login/register',
+      'index/Login/doregister',
+      'index/Index/ajaxgetgoodslist',
+      'index/Index/goods_info'
     ],
 ];

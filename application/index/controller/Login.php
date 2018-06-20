@@ -12,6 +12,7 @@ namespace app\index\controller;
 use controller\BaseHome;
 use service\DataService;
 use think\Db;
+use think\facade\Session;
 
 /**
  * Class Login
@@ -102,5 +103,12 @@ class Login extends BaseHome {
       return $this->AjaxError('注册失败');
     }
 
+  }
+
+  public function login_out () {
+    session('user_id', null);
+    session('user_info', null);
+    Session::delete('user_id');
+    Session::delete('user_info');
   }
 }

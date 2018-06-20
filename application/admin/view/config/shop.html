@@ -1,0 +1,168 @@
+{extend name="admin@public/content"}
+
+{block name="content"}
+
+<form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" class='form-horizontal layui-form padding-top-20'>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			SendUsername<br><span class="nowrap color-desc">寄件人名称</span>
+		</label>
+		<div class='col-sm-8'>
+			<input name="send_username" title="请输入寄件人名称" placeholder="请输入寄件人名称" value="{:sysconf('send_username')}" class="layui-input">
+			<p class="help-block">寄件人名称用于确认订单时，默认填写</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			SendPhone<br><span class="nowrap color-desc">寄件人手机号</span>
+		</label>
+		<div class='col-sm-8'>
+			<input name="send_phone" title="请输入寄件人手机号" placeholder="请输入寄件人手机号" value="{:sysconf('send_phone')}" class="layui-input">
+			<p class="help-block">寄件人手机号用于确认订单时，默认填写</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			SendArea<br><span class="nowrap color-desc">寄件人地址</span>
+		</label>
+		<div class='col-sm-8'>
+			<div class="layui-col-xs4 padding-right-5">
+				<select name="send_province" class="layui-select block full-width" id="send_province" lay-ignore>
+					<!--{volist name="province" id="p"}-->
+						<option value="{$p.id}" {if condition="sysconf('send_province') eq $p.id"}selected{/if}>{$p.name}</option>
+					<!--{/volist}-->
+				</select>
+			</div>
+			<div class="layui-col-xs4 padding-right-5">
+				<select name="send_city" class="layui-select block full-width" id="send_city" lay-ignore>
+					<!--{volist name="city" id="c"}-->
+					<option value="{$c.id}" {if condition="sysconf('send_city') eq $c.id"}selected{/if}>{$c.name}</option>
+					<!--{/volist}-->
+				</select>
+			</div>
+			<div class="layui-col-xs4">
+				<select name="send_area" class="layui-select block full-width" id="send_area" lay-ignore>
+					
+					{if condition="sysconf('send_area')"}
+					<!--{volist name="area" id="a"}-->
+					<option value="{$a.id}" {if condition="sysconf('send_area') eq $a.id"}selected{/if}>{$a.name}</option>
+					<!--{/volist}-->
+					{else/}
+						<option value="0">还未选择县/区</option>
+					{/if}
+				</select>
+			</div>
+			<p class="help-block">寄件人地址用于确认订单时，默认填写</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			SendAddress<br><span class="nowrap color-desc">寄件人详细地址</span>
+		</label>
+		<div class='col-sm-8'>
+			<input name="send_address" title="请输入寄件人详细地址" placeholder="请输入寄件人详细地址" value="{:sysconf('send_address')}" class="layui-input">
+			<p class="help-block">寄件人详细地址用于确认订单时，默认填写</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			OrderDescription<br><span class="nowrap color-desc">发货描述</span>
+		</label>
+		<div class='col-sm-8'>
+			<input name="send_desc" title="请输入发货描述" placeholder="请输入发货描述" value="{:sysconf('send_desc')}" class="layui-input">
+			<p class="help-block">发货描述用于确认订单时，默认填写</p>
+		</div>
+	</div>
+	<div class="hr-line-dashed"></div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			Wechat<br><span class="nowrap color-desc">微信二维码</span>
+		</label>
+		<div class='col-sm-8'>
+			<img data-tips-image style="height:auto;max-height:32px;min-width:32px" src="{:sysconf('wechat_qrcode')}"/>
+			<input type="hidden" name="wechat_qrcode" onchange="$(this).prev('img').attr('src', this.value)" value="{:sysconf('wechat_qrcode')}" class="layui-input">
+			<a class="btn btn-link" data-file="one" data-uptype="local" data-type="jpeg,jpg,png" data-field="wechat_qrcode">上传图片</a>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			WechatPay<br><span class="nowrap color-desc">微信收款二维码</span>
+		</label>
+		<div class='col-sm-8'>
+			<img data-tips-image style="height:auto;max-height:32px;min-width:32px" src="{:sysconf('wechat_pay_qrcode')}"/>
+			<input type="hidden" name="wechat_pay_qrcode" onchange="$(this).prev('img').attr('src', this.value)" value="{:sysconf('wechat_pay_qrcode')}" class="layui-input">
+			<a class="btn btn-link" data-file="one" data-uptype="local" data-type="jpeg,jpg,png" data-field="wechat_pay_qrcode">上传图片</a>
+		</div>
+	</div>
+	<div class="hr-line-dashed"></div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			PayNote<br><span class="nowrap color-desc">付款前的说明</span>
+		</label>
+		<div class='col-sm-8'>
+			<textarea placeholder="请输入付款前的说明" title="请输入付款前的说明" class="layui-textarea" name="before_pay_desc">{:sysconf('before_pay_desc')}</textarea>
+			<p class="help-block">用于用户付款前的说明。</p>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			Contact<br><span class="nowrap color-desc">联系说明</span>
+		</label>
+		<div class='col-sm-8'>
+			<textarea placeholder="请输入付款前的说明" title="请输入付款前的说明" class="layui-textarea" name="contact">{:sysconf('contact')}</textarea>
+			<p class="help-block">用于用户付款前的说明。</p>
+		</div>
+	</div>
+	
+	<div class="col-sm-4 col-sm-offset-2">
+		<div class="layui-form-item text-center">
+			<button class="layui-btn" type="submit">保存配置</button>
+		</div>
+	</div>
+</form>
+<script>window.form.render();</script>
+
+<script>
+  /*! 实例富文本编辑器  */
+  require(['ckeditor'], function () {
+    window.createEditor('[name="before_pay_desc"]', {height: 200});
+    window.createEditor('[name="contact"]', {height: 200});
+
+  });
+  
+  $("#send_province").change(function (e) {
+    getData($(this).val(), function (data) {
+      let html = ''
+	    for (var i = 0; i < data.length; i ++) {
+        var _d = data[i]
+        html += '<option value="' + _d.id + '">' + _d.name + '</option>'
+      }
+      $("#send_city").html(html)
+    })
+  })
+
+  $("#send_city").change(function (e) {
+    getData($(this).val(), function (data) {
+      let html = ''
+      for (var i = 0; i < data.length; i ++) {
+        var _d = data[i]
+        html += '<option value="' + _d.id + '">' + _d.name + '</option>'
+      }
+      $("#send_area").html(html)
+    })
+  })
+	
+	function getData(parent_id, cb) {
+		$.get('{:url("getRegionByParentId")}', {parent_id: parent_id}, function (responce) {
+			if (responce.status) {
+				cb && cb(responce.result)
+			} else {
+			  alert('失败')
+			}
+    }, 'json')
+  }
+  
+</script>
+{/block}

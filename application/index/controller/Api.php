@@ -72,20 +72,20 @@ class Api extends BaseHome {
         exit(json_encode($res));
     }
 
-    /**
-     * 获取市或者区
-     */
-    public function getRegionByParentId()
-    {
-        $parent_id = input('parent_id');
-        $res = array('status' => 0, 'msg' => '获取失败，参数错误', 'result' => '');
-        if($parent_id){
-            $region_list = Db::name('StoreRegion')->field('id,name')->where(['parent_id'=>$parent_id])->select();
-            $res = array('status' => 1, 'msg' => '获取成功', 'result' => $region_list);
-        }
-        exit(json_encode($res));
-    }
 
+  /**
+   * 获取市或者区
+   */
+  public function getRegionByParentId()
+  {
+    $parent_id = input('parent_id');
+    $res = array('status' => 0, 'msg' => '获取失败，参数错误', 'result' => '');
+    if($parent_id){
+      $region_list = Db::name('StoreRegion')->field('id,name')->where(['parent_id'=>$parent_id])->select();
+      $res = array('status' => 1, 'msg' => '获取成功', 'result' => $region_list);
+    }
+    exit(json_encode($res));
+  }
     /*
      * 获取下级分类
      */

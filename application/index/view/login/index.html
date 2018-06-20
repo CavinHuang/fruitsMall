@@ -3,9 +3,9 @@
 {block name="body"}
 <div class="toper navbar-fixed-top">
 	<div class="row color_white " >
-		<div class="col-xs-2"></div>
+		<div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="javascript:window.history.go(-1);"><i class="icon-angle-left font32"></i></a></div>
 		<div class="col-xs-8 text-center font20">快速登录</div>
-		<div class="col-xs-2">&nbsp;</div>
+		<div class="col-xs-2"><a href="{:url('index/Index/index')}" class="cwhite">&nbsp;首页</a></div>
 	</div>
 </div><!-- toper -->
 <div class="height53"></div>
@@ -51,13 +51,15 @@ line-height: 28px;display: inline-block">还没有账号? 立即注册!</a>
 
       $(this).removeClass('btn-success').text('正在登录...')
       isSubmit = true
+	    var _this = $(this)
 
       $.post('{:url("doLogin")}', $('form[name="login"]').serialize(), function (res) {
         if (res.code == 1) {
           setTimeout(function () {window.location.href = "{:url('user/index')}"}, 2000)
         }
         msg(res.msg)
-
+	      isSubmit = false
+        _this.addClass('btn-success').text('登 录')
       }, 'json')
 
       return false

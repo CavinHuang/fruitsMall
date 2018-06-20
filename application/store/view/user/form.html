@@ -1,0 +1,57 @@
+<form class="layui-form layui-box modal-form-box" action="{:request()->url()}" data-auto="true" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户账号</label>
+        <div class="layui-input-block">
+            {if $vo and isset($vo.phone)}
+            <input readonly="readonly" disabled="disabled" name="phone" value='{$vo.phone|default=""}' required="required" title="请输入用户账号" placeholder="请输入用户账号" class="layui-input layui-bg-gray">
+            {else}
+            <input name="phone" value='{$vo.phone|default=""}' required="required" pattern="^.{4,}$" title="请输入用户账号" placeholder="请输入4位及以上字符用户名称" class="layui-input">
+            {/if}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户昵称</label>
+        <div class="layui-input-block">
+            <input type="tel" autofocus name="nickname" value='{$vo.nickname|default=""}' title="请输入用户昵称" placeholder="请输入用户昵称" class="layui-input">
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <select name="sex" lay-verify="required">
+                <option value="男" {if condition="$vo.sex eq '男'"}selected{/if}>男</option>
+                <option value="女" {if condition="$vo.sex eq '女'"}selected{/if}>女</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户级别</label>
+        <div class="layui-input-block">
+            <select name="level" lay-verify="required">
+                <option value="1" {if condition="$vo.level eq 1"}selected{/if}>普通用户</option>
+                <option value="2" {if condition="$vo.level eq 2"}selected{/if}>vip用户</option>
+                <option value="3" {if condition="$vo.level eq 3"}selected{/if}>管理员</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入用户描述" title="请输入用户描述" class="layui-textarea" name="remark">{$vo.remark|default=""}</textarea>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'>{/if}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+    <script>window.form.render();</script>
+</form>

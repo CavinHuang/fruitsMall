@@ -1,0 +1,392 @@
+{extend name="index@public/main"}
+{block name="viewport"}{if condition="isset($order_info) && $order_info"}{else/}<meta name="viewport" content="width=device-width, initial-scale=1">{/if}{/block}
+{block name="style"}
+
+{if condition="isset($order_info) && $order_info"}
+<script src="__STATIC__/homeWap/js/mobile-util.js"></script>
+<link rel="stylesheet" href="__STATIC__/homeWap/css/address.css" />
+<link rel="stylesheet" href="__STATIC__/plugs/kdn/KDNWidget.css" />
+<style>
+	a,a:visited,a:link {color: #232326}
+	.order_send {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		background: #f2f2f2;
+		font-size: 16px;
+	}
+</style>
+<link rel="stylesheet" href="__STATIC__/homeWap/css/order_send.css" />
+{else/}
+<style>
+	body {
+		background: #F2F2F2!important;
+	}
+	.order_manger_warrp {
+	
+	}
+	.order_manger_container {
+		width: 80%;
+		margin: 0 auto;
+		height: 200px;
+		background: #0bb20c;
+		color: #fff;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 5px;
+	}
+	.order_manger_container h1 {
+		height: 34px;
+		line-height: 34px;
+		margin: 0;
+		font-size: 18px;
+		text-align: center;
+	}
+	.order_manger_container .order_manger_input {
+		margin-top: 10px;
+	}
+	.order_manger_container .order_manger_input label {
+		display: block;
+		text-align: center;
+	}
+	.order_manger_container .order_manger_input .order_manger_inp {
+		height: 34px;
+		line-height: 34px;
+		display: block;
+		width: 80%;
+		margin: 0 auto;
+		border-radius: 5px;
+		padding-left: 5px;
+		outline: none;
+		border: 1px solid #fff;
+		font-size: 14px;
+		color: #333
+	}
+	.order_manger_container .order_manger_input .order_manger_submit {
+		width: 160px;
+		margin: 0 auto;
+		text-align: center;
+		background: #F2F2F2;
+		color: #0bb20c;
+		border: 1px solid #F2F2F2;
+		display: block;
+		margin-top: 20px;
+		height: 30px;
+		line-height: 30px;
+		border-radius: 4px;
+	}
+</style>
+{/if}
+{/block}
+{block name="body"}
+{if condition="isset($order_info) && $order_info"}
+<div class="edit_gtfix">
+	<div class="namephone fl">
+		<div class="top">
+			<div class="le fl">{$order_info.consignee}</div>
+			<div class="lr fl">{$order_info.phone}</div>
+		</div>
+		<div class="bot">
+			<i class="dwgp"></i>
+			<span>{$order_info.address}</span>
+		</div>
+	</div>
+	<div class="fr youjter">
+	</div>
+	<div class="ttrebu">
+		<img src="__STATIC__/homeWap/images/tt.png"/>
+	</div>
+</div>
+<div class="packeg p">
+	<div class="maleri30">
+		<div class="fl">
+			{if condition="$order_info.type eq 2"}
+			<h1><span >订单类型：</span><span class="bgnum"></span><span>积分订单</span></h1>
+			{/if}
+			<h1></h1>
+		</div>
+		<div class="fr">
+			<span>{$order_status_desc[$order_info.status]}</span>
+		</div>
+	</div>
+</div>
+<!--订单商品列表-s-->
+<div class="ord_list p">
+	<div class="maleri30">
+		<!--{volist name="order_goods" id="good"}-->
+		<a href="{:url('Mobile/Goods/goodsInfo',array('id'=>$good['goods_id']))}">
+			<div class="shopprice">
+				<div class="img_or fl">
+					<img src="{$good.goods_logo}"/>
+				</div>
+				<div class="fon_or fl">
+					<h2 class="similar-product-text">{$good['goods_title']} {$good['goods_id']}</h2>
+					<div><span class="bac">{$good['goods_spec']}</span></div>
+				</div>
+				<div class="price_or fr">
+					<p><span>￥</span><span>{$good[$good['price_field']]}</span></p>
+					<p>x{$good['number']}</p>
+				</div>
+			</div>
+		</a>
+		<!--{/volist}-->
+	</div>
+</div>
+<!--订单商品列表-e-->
+<div class="qqz">
+	<div class="maleri30">
+		<a href="tel:{:sysconf('SiteName')}">联系客服</a>
+		{if condition="$order_info.status == 0 || $order_info.status == 1"}
+		<a class="closeorder_butt" >取消订单</a>
+		{/if}
+	</div>
+</div>
+<div class="information_dr ma-to-20">
+	<div class="maleri30">
+		<div class="tit" style="height: 2rem">
+			<h2 class="fl">基本信息</h2>
+			<span class="fr" style="font-size: .55467rem;border: 1px solid #ddd;padding: 8px 12px;border-radius: 8px;" onclick="copyOrderNo(this)">复制</span>
+		</div>
+		<div class="xx-list">
+			<p class="p">
+				<span class="fl">订单编号</span>
+				<span class="fr" id="order_no">{$order_info.order_no}</span>
+			</p>
+			<p class="p">
+				<span class="fl">下单时间</span>
+				<span class="fr"><span>{$order_info.create_at}</span></span>
+			</p>
+			<p class="p">
+				<span class="fl">收货地址</span>
+				<span class="fr">{$order_info['address']}</span>
+			</p>
+			<p class="p">
+				<span class="fl">收货人</span>
+				<span class="fr"><span>{$order_info.consignee}</span><span>{$order_info.phone}</span></span>
+			</p>
+			<p class="p">
+				<span class="fl">支付方式</span>
+				<span class="fr">
+					{if condition="$order_info['is_pay'] eq 1 and empty($order_info.pay_type)"}
+						在线支付
+					{else/}
+						{$order_info.pay_type}
+					{/if}
+				</span>
+			</p>
+			<p class="p">
+				<span class="fl">配送方式</span>
+				<span class="fr">{/*$order_info.shipping_name*/}</span>
+			</p>
+			<p class="p">
+				<span class="fl">买家留言</span>
+				<span class="fr">{$order_info.desc}</span>
+			</p>
+		</div>
+	</div>
+</div>
+<div class="information_dr ma-to-20">
+	<div class="maleri30">
+		<div class="tit">
+			<h2>价格信息</h2>
+		</div>
+		<div class="xx-list">
+			<p class="p">
+				<span class="fl">商品总价</span>
+				<span class="fr"><span>￥</span><span>{$order_info.goods_price}</span>元</span>
+			</p>
+			<p class="p">
+				<span class="fl">运费</span>
+				<span class="fr"><span>￥</span><span>{$order_info.freight_price}</span>元</span>
+			</p>
+			{if condition="$order_info.type neq 2"}
+			
+			{/if}
+			<p class="p">
+				<span class="fl">应付总额</span>
+				<span class="fr red"><span>￥</span><span>{$order_info.real_price}</span>元</span>
+			</p>
+		</div>
+	</div>
+</div>
+
+<!--取消订单-s-->
+<div class="losepay closeorder" style="display: none;">
+	<div class="maleri30">
+		<p class="con-lo">取消订单后,存在促销关系的子订单及优惠可能会一并取消。是否继续？</p>
+		<div class="qx-rebd">
+			<a class="ax">取消</a>
+			{if condition="$order_info.is_pay eq 0"}
+			<a class="are" onclick="cancel_order({$order_info.id})">确定</a>
+			{/if}
+			{if condition="$order_info.is_pay eq 1"}
+			<a class="are" href="{:url('Order/refund_order', ['order_id'=>$order_info['id']])}">取消订单</a>
+			{/if}
+		</div>
+	</div>
+</div>
+<!--取消订单-e-->
+<!--底部支付栏-s-->
+<div class="payit ma-to-20" style="position: fixed;bottom: 0;left: 0;right: 0;">
+	<div class="fr s">
+		{if condition="$order_info.status eq 1"}
+		<a href="{:url('order_handle', ['order_no' => $order_info.order_no, 'status' => 2])}">确认收款</a>
+		{/if}
+		<!--{:url('order_handle',array('order_no'=>$order_info.order_no, 'status' => 3))}-->
+		{if condition="$order_info.status eq 2"}
+		<a href="javascript:;" id="confirm_send">确认发货</a>
+		{/if}
+		
+		{if condition="$order_info.status >= 3"}
+		<a href="{:url('shipping', ['express_code' => $order_express['company_code'], 'express_no' => $order_express['send_no']])}">查看物流</a>
+		{/if}
+	</div>
+</div>
+<!--底部支付栏-d-->
+
+<div class="mask-filter-div" style="display: none;"></div>
+
+	{else/}
+	<div class="order_manger_container">
+		<h1>订单处理</h1>
+		<div class="order_manger_input">
+			<form action="">
+				<label>订单号</label>
+				<input type="text" name="order_no" class="order_manger_inp" placeholder="请输入订单号"/>
+				<input type="submit" class="order_manger_submit" value="查询">
+			</form>
+		</div>
+	</div>
+	{/if}
+{if condition="isset($order_info) && $order_info"}
+<div class="order_send" id="orderSend" style="display: none">
+	<section class="container">
+		<form action="{:url('setExpress')}">
+			<fieldset class="shipping">
+				<legend><b>1.</b>物流信息</legend>
+				<div class="frow"><label for="">物流公司</label>
+					<select name="company_code" id="" class="form-control">
+						{volist name="express" id="e"}
+						<option value="{$e.express_code}">{$e.express_title}</option>
+						{/volist}
+					</select>
+				</div>
+				<div class="frow"><label for="">快递单号</label><input class="item" name="send_no" placeholder="快递单号" type="text"></div>
+				<div class="frow"><a class="next-step step" data-step="alpha" data-now="shipping" href="#">下一步!</a></div>
+			</fieldset>
+			
+			<fieldset class="alpha">
+				<legend><b>2.</b>收件人信息</legend>
+				<div class="frow"><label for="">收货人姓名</label><input class="item" name="username" value="{$order_info.consignee}" placeholder="用户名" type="text"></div>
+				<div class="frow"><label for="">收货人电话</label><input class="item" name="phone" value="{$order_info.phone}" placeholder="收货人电话" type="text"></div>
+				<div class="frow"><label for="">收货人地址</label><input class="item" name="address" value="{$order_info['address']}" placeholder="收货人地址" type="text"></div>
+				<div class="frow"><a class="prev-step step" data-step="shipping" data-now="alpha" href="#">上一步</a></div>
+				<div class="frow"><a class="next-step step" data-step="beta" data-now="alpha" href="#">下一步!</a></div>
+			</fieldset>
+			
+			<fieldset class="beta">
+				<legend><b>3.</b>发件人信息</legend>
+				<div class="frow"><label for="">发件人姓名</label><input class="item" name="send_username" placeholder="发件人姓名" value="{:sysconf('send_username')}" required="required" type="text"></div>
+				<div class="frow"><label for="">发件人电话</label><input class="item" name="send_phone" placeholder="发件人电话" value="{:sysconf('send_phone')}" required="required" type="text"></div>
+				<div class="frow"><label for="">发件人地址</label><input class="item" name="send_address" placeholder="发件人地址" value="{$send_address}" required="required" type="text"></div>
+				<div class="frow"><a class="prev-step step" data-step="alpha" data-now="beta" href="#">上一步</a></div>
+				<input type="hidden" name="order_no" value="{$order_info.order_no}" />
+				<input type="hidden" name="type" value="{$order_info.type}" />
+				<input type="hidden" name="mid" value="{$order_info.mid}" />
+				<div class="frow"><input class="submit" type="submit" value="完成"></div>
+			</fieldset>
+			
+			<fieldset class="charlie">
+				<legend><b>3.</b>完成</legend>
+				<div class="frow"><p>您的信息已经填写完整，谢谢！</p></div>
+				<div class="frow"><a class="prev-step" href="{:url('order_manger')}">返回</a></div>
+			</fieldset>
+		</form>
+	</section>
+</div>
+{/if}
+{/block}
+{block name="footer"}{/block}
+{block name="script"}
+<script src="__STATIC__/plugs/kdn/KDNWidget.js"></script>
+<script src="http://www.kdniao.com/OutDemo/KDNWidget/KDNWidget.js"></script>
+
+<script>
+  {if condition="isset($order_info) && $order_info"}
+  jQuery(document).ready(function(){
+    $("#confirm_send").click(function () {
+	    $("#orderSend").show()
+    })
+    function doStep(){
+      // Next Button
+      $('a.step').click(function(event){
+        event.preventDefault();
+        var step = $(this).data('step')
+	      var now = $(this).data('now')
+	      var isContinue = true
+	      
+	      // 校验
+	      var inputs = $(this).parent().siblings('.frow').find('input')
+	      
+	      $(inputs).each(function (v, i) {
+		      if ($(this).val() == '') {
+		        msg('还有未填项目')
+            isContinue = false
+          }
+        })
+	      
+	      if (!isContinue) return
+	      
+        // Part 1
+        if($('.' + now).hasClass("in")) {
+          $('.' + now).removeClass("in");
+        }
+        $('.' + now).addClass("out");
+        // Part 2
+        if($('.' + step).hasClass("out")) {
+          $('.' + step).removeClass("out");
+        }
+        $('.' + step).addClass("in");
+      });
+
+      // Submit & Complete
+      $('.submit').click(function(event){
+        
+        // 校验
+	      var form = $('form')
+	      var url = $(form).attr('action')
+	      var data = $(form).serialize()
+	      
+	      $.post(url, data, function (res) {
+		      if (res.code == 1) {
+            // Part 1
+            if($('.beta').hasClass("in")) {
+              $('.beta').removeClass("in");
+            }
+            $('.beta').addClass("out");
+            // Part 2
+            if($('.charlie').hasClass("out")) {
+              $('.charlie').removeClass("out");
+            }
+            $('.charlie').addClass("in");
+		      }
+		      msg(res.msg)
+        })
+
+        return false
+
+        
+      });
+    }
+    // Active Functions
+    doStep();
+  });
+</script>
+{/block}

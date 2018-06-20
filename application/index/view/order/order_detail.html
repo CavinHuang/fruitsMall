@@ -6,6 +6,10 @@
 <style>
 	a,a:visited,a:link {color: #232326}
 	body{background: #f8f8f8 !important;}
+	.payit .fr a {
+		display: inline-block;
+		width: 4.18133rem;
+	}
 </style>
 {/block}
 {block name="body"}
@@ -36,7 +40,7 @@
 			<h1></h1>
 		</div>
 		<div class="fr">
-			<span>{$order_status_desc[$order_info.status]}</span>
+			<span>{$order_status_desc[$order_info['status']]}</span>
 		</div>
 	</div>
 </div>
@@ -66,20 +70,21 @@
 <div class="qqz">
 	<div class="maleri30">
 		<a href="tel:{:sysconf('SiteName')}">联系客服</a>
-		{if condition="$order_info.status == 0 || $order_info.status == 1"}
+		{if condition="$order_info.status == 1"}
 			<a class="closeorder_butt" >取消订单</a>
 		{/if}
 	</div>
 </div>
 <div class="information_dr ma-to-20">
 	<div class="maleri30">
-		<div class="tit">
-			<h2>基本信息</h2>
+		<div class="tit" style="height: 2rem">
+			<h2 class="fl">基本信息</h2>
+			<span class="fr" style="font-size: .55467rem;border: 1px solid #ddd;padding: 8px 12px;border-radius: 8px;" onclick="copyOrderNo(this)">复制</span>
 		</div>
 		<div class="xx-list">
 			<p class="p">
 				<span class="fl">订单编号</span>
-				<span class="fr">{$order_info.order_no}</span>
+				<span class="fr" id="order_no">{$order_info.order_no}</span>
 			</p>
 			<p class="p">
 				<span class="fl">下单时间</span>
@@ -163,24 +168,42 @@
 {block name="footer"}
 <!--底部支付栏-s-->
 <div class="payit ma-to-20">
-	<div class="fr s">
+	<div class="fr s" style="width: auto">
 		{if condition="$order_info.status eq 1"}
-		<a href="{:url('Mobile/Cart/cart4',array('order_id'=>$order_info['id']))}">立即付款</a>
+		<a href="{:url('order_topay', ['order_no' => $order_info.order_no])}">立即付款</a>
 		{/if}
 		
-		{if condition="$order_info.status > 2"}
-		<a href="{:url('Mobile/Order/order_confirm',array('id'=>$order_info['id']))}">收货确认</a>
+		{if condition="$order_info.status eq 3"}
+		<a href="{:url('Order/order_handle',array('order_no'=>$order_info['order_no'], 'status' => 4))}">收货确认</a>
 		{/if}
-		
-		{if condition="$order_info.status > 2"}
-		<a href="{:url('Mobile/Order/express',array('order_id'=>$order_info['id']))}" >查看物流</a>
+		{if condition="$order_info.status >= 3"}
+		<a href="{:url('Order/shipping', ['express_code' => $order_express['company_code'], 'express_no' => $order_express['send_no']])}">查看物流</a>
 		{/if}
 	</div>
 </div>
 <!--底部支付栏-d-->
 {/block}
 {block name="script"}
+<script src="__STATIC__/homeWap/js/clipboard.min.js"></script>
 <script type="text/javascript">
+	
+	function copyOrderNo (obj) {
+    var clipboard = new Clipboard(obj, {
+      // 通过target指定要复印的节点
+      target: function() {
+        return document.querySelector('#order_no');
+      }
+    });
+
+    clipboard.on('success', function(e) {
+      msg('复制成功,联系管理员。')
+    });
+
+    clipboard.on('error', function(e) {
+      msg('复制成功,请重试。')
+    });
+	}
+	
   //取消订单按钮
   $('.closeorder_butt').click(function(){
     $('.mask-filter-div').show();
